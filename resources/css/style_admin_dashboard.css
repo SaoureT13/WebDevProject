@@ -1,0 +1,410 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+:root {
+    --color1: yellow;
+    --color2: rgb(67, 67, 163);
+    --color3: rgb(243, 245, 130);
+    --color4: white;
+}
+* {
+    box-sizing: border-box;
+    font-family: "Poppins", "Helvetica Neue", Helvetica, Arial, serif;
+    margin: 0;
+    padding: 0;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+body {
+    font-size: 17px;
+    width: 100%;
+    line-height: 1.4;
+    text-rendering: optimizeLegibility;
+}
+
+.layout-wrapper {
+    width: 100%;
+    display: flex;
+}
+
+.layout-container {
+    width: 100%;
+    display: flex;
+    min-height: 100vh;
+}
+
+.layout-container .vertical-menu {
+    position: fixed;
+    left: -450px;
+    top: 0;
+    bottom: 0;
+    border-right: 2px solid #ccc;
+    z-index: 1000;
+    background: #fff;
+    transition: all .3s;
+}
+
+.layout-container .vertical-menu.active{
+    left: 0;
+}
+
+.layout-container .overlay{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.25);
+    z-index: 999;
+    visibility: hidden;
+}
+
+.layout-container .vertical-menu.active ~ .overlay{
+    visibility: visible;
+}
+
+.layout-container .vertical-menu .logo {
+    padding: 0.564rem 1.25rem;
+}
+
+.layout-container .vertical-menu .logo a {
+    display: block;
+}
+
+.layout-container .vertical-menu .menu {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 18.25em;
+}
+
+.layout-container .vertical-menu .menu li {
+    font-size: 1.2em;
+    margin-top: 0.275em;
+}
+
+.layout-container .vertical-menu .menu .item-deconnexion{
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.15px;
+    transition: all .3s;
+}
+
+.layout-container .vertical-menu .menu .item-deconnexion:hover{
+    border-radius: 0 50rem 50rem 0;
+    background: var(--color2);
+    color: #fff;
+    cursor: pointer;
+}
+
+.layout-container .vertical-menu .menu .item-deconnexion form{
+    width: 100%;
+}
+
+.layout-container .vertical-menu .menu .item-deconnexion form .btn-deconnexion{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1em;
+    background: transparent;
+    border: none;
+    color: inherit;
+    padding: 0.564rem 1.25rem;
+    width: 100%;
+}
+
+.layout-container .vertical-menu .menu .item-deconnexion form .btn-deconnexion ion-icon{
+    width: 1.4em;
+    height: 1.4em;
+}
+
+.layout-container .vertical-menu .menu .item-deconnexion  form .btn-deconnexion:hover{
+    cursor: pointer;
+}
+
+.layout-container .vertical-menu .menu .menu-item:hover {
+    cursor: pointer;
+}
+
+.layout-container .vertical-menu .menu li.active > a {
+    background: var(--color2);
+    border-radius: 0 50rem 50rem 0;
+    color: #fff;
+}
+
+.layout-container .vertical-menu .menu li .menu-link,
+.option-sub li a {
+    position: relative;
+    display: block;
+    letter-spacing: 0.15px;
+    padding: 0.564rem 1.25rem;
+    margin-right: 0.5em;
+    margin-left: 0;
+    transition: all 0.3s;
+}
+
+.layout-container .vertical-menu .menu li .menu-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.layout-container .vertical-menu .menu li .menu-link ion-icon {
+    width: 1.4em;
+    height: 1.4em;
+}
+.layout-container .vertical-menu .menu li.active .menu-link{
+    background: var(--color3);
+    border-radius: 0 50rem 50rem 0;
+}
+
+.layout-container .vertical-menu .menu li:not(.active) .menu-link:hover,
+.option-sub li:not(.active) a:hover {
+    background: #f4f5fa;
+    border-radius: 0 50rem 50rem 0;
+}
+
+.layout-container .vertical-menu .menu li .menu-link::after {
+    position: absolute;
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: url("../img/chevron-forward-outline.svg");
+    right: 15px;
+    vertical-align: middle;
+    transition: all 0.3s;
+}
+
+.layout-container .vertical-menu .menu .menu-item:hover .menu-link::after,
+.layout-container .vertical-menu .menu .menu-item.active .menu-link::after  {
+    transform: rotate(90deg);
+}
+
+.layout-container .vertical-menu .menu .menu-item .option-sub {
+    display: block;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.4s ease;
+}
+
+.layout-container .vertical-menu .menu .menu-item:nth-child(1):hover .option-sub,
+.layout-container .vertical-menu .menu .menu-item.active:nth-child(1) .option-sub{
+    display: block;
+    height: 170px;
+}
+
+.layout-container .vertical-menu .menu .menu-item:nth-child(2):hover .option-sub,
+.layout-container .vertical-menu .menu .menu-item:nth-child(3):hover .option-sub,
+.layout-container .vertical-menu .menu .menu-item.active:nth-child(2) .option-sub,
+.layout-container .vertical-menu .menu .menu-item.active:nth-child(3) .option-sub {
+    display: block;
+    height: 120px;
+}
+
+.option-sub li a {
+    font-size: 0.7em;
+}
+
+.content-wrapper {
+    flex-basis: 100%;
+    flex-direction: column;
+    width: 0;
+    max-width: 100%;
+}
+
+.content-wrapper .container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.content-wrapper .container nav {
+    display: flex;
+    max-width: 100%;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin: 0 20px 0 20px;
+    height: 4rem;
+    backdrop-filter: blur(7.5px);
+}
+.content-wrapper .container nav .burger-menu {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 0.55em;
+}
+.content-wrapper .container nav .burger-menu ion-icon {
+    width: 2em;
+    height: 2em;
+}
+
+.content-wrapper .container .navbar-right {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.content-wrapper .container .navbar-right .search-bar {
+    position: relative;
+    width: 40%;
+}
+
+.content-wrapper .container .navbar-right .search-bar ion-icon {
+    width: 1.5em;
+    height: 1.5em;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+}
+
+.content-wrapper .container .navbar-right .search-bar > input {
+    display: block;
+    padding-left: 2em;
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
+.content-wrapper .container .navbar-right .user {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.content-wrapper .container .main .filter-bar {
+    max-width: 100%;
+    margin: 0 20px 20px 20px;
+}
+
+.content-wrapper .container .main .filter-bar .filter {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5em;
+    width: 100%;
+}
+
+.content-wrapper .container .main .filter-bar .filter form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content-wrapper .container .main .filter-bar .filter form select {
+    border-radius: 0.5em;
+    background: var(--color2);
+    color: white;
+    border: none;
+    outline: none;
+    padding: 4px 8px;
+}
+
+.content-wrapper .container  .main .filter-bar .filter form select option {
+    background: var(--color2);
+    color: white;
+    font-size: 0.9em;
+}
+
+.content-wrapper .container .main .filter-bar .filter form .btn{
+    color: white;
+    font-weight: bold;
+    background: var(--color2);
+}
+
+.card {
+    background-clip: padding-box;
+    word-wrap: break-word;
+    margin: 0 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card .table-responsive {
+    overflow-x: auto;
+}
+
+.card .table-responsive table {
+    caption-side: bottom;
+    border-collapse: collapse;
+    font-size: 0.8em;
+    width: 100%;
+}
+
+.card .table-responsive table thead {
+    vertical-align: bottom;
+    background-color: var(--color3);
+}
+
+.card .table-responsive table thead th,
+.card .table-responsive table tbody td{
+    border-bottom: 2px solid #ccc;
+}
+
+thead,
+tbody,
+tfoot,
+tr,
+td,
+th {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+    text-align: start;
+}
+
+.badge-status{
+    color: white;
+    font-size: .8em;
+    padding: 4px 8px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.badge-status.pending{
+    background-color: #f0ad4e;
+}
+
+.badge-status.validated{
+    background-color: #5cb85c;
+}
+
+.badge-status.rejected{
+    background-color: #d9534f;
+}
+tbody tr:hover{
+    cursor: pointer;
+    background-color: #f4f5fa;
+}
+
+.table > :not(caption) > * > * {
+    padding: 0.6rem 1em;
+}
+
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media screen and (min-width: 576px) {
+    .layout-container .vertical-menu {
+        left: 0;
+    }
+
+    .content-wrapper .container nav .burger-menu ion-icon {
+        display: none;
+    }
+
+    .content-wrapper {
+        padding-left: 310px;
+    }
+}

@@ -1,0 +1,307 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+:root {
+    --color1: yellow;
+    --color2: rgb(67, 67, 163);
+    --color3: rgb(243, 245, 130);
+    --color4: white;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+}
+
+a:visited {
+    color: var(--color2);
+}
+
+
+body {
+    font-size: 15px;
+    width: 100%;
+}
+
+.couvercle {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    background-color: var(--color3);
+    overflow: hidden;
+    padding: 20px;
+}
+
+.container button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    padding: 10px 0;
+    border-radius: 5px;
+    width: 100%;
+    background-color: var(--color2);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 0 0 rgba(67, 67, 163, 0.5);
+    transition: all 0.3s;
+    text-transform: uppercase;
+}
+
+.container form button:hover {
+    transform: translateY(5px);
+    box-shadow: none;
+}
+
+.container form button:disabled{
+    transform: none;
+    box-shadow: none;
+    background: #ccc;
+}
+
+.container form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+.container form .form_head {
+    width: 100%;
+}
+
+.container form .form_head .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container form .form_head .title h1 {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.container form .form_head .title .step__circles {
+    display: flex;
+    gap: 0.4em;
+}
+
+.container form .form_head .title .step__circles .circle {
+    background-color: var(--color3);
+    color: var(--color2);
+    border: solid 2px var(--color2);
+    padding: 8px 16px;
+    text-align: center;
+    border-radius: 99%;
+    font-weight: bold;
+    transition: 0.5s;
+}
+
+.container form .form_head .title .step__circles .circle.active {
+    background-color: var(--color2);
+    color: var(--color3);
+}
+
+.container form .form_body {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 500px;
+}
+
+.container form .form_body .form_container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    gap: 2.2em;
+    transition: 0.5s;
+}
+.container form .form_body .step_2 {
+    left: 0;
+}
+
+.container form .form_body .step_1 {
+    right: 0;
+}
+.container form .form_body .step_2:not(.current) {
+    left: 500px;
+}
+
+.container form .form_body .step_1:not(.current) {
+    right: 500px;
+}
+
+.container form .form_container .input-box {
+    position: relative;
+    border-bottom: 2px solid var(--color2);
+}
+
+.container form .form_container .input-box.error{
+    border-bottom: 2px solid red;
+}
+
+.container form .form_container .input-box input {
+    width: 100%;
+    height: 40px;
+    font-size: 1em;
+    padding: 0 5px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: var(--color2);
+}
+
+.container form .form_container .input-box .alert{
+    position: absolute;
+    left: 5px;
+    bottom: -70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    gap: 5px;
+}
+
+.container form .form_container .input-box label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    pointer-events: none;
+    transition: all 0.3s;
+    color: var(--color2);
+    font-weight: bold;
+}
+
+.container form .form_container .input-box label.error{
+    color: red;
+}
+
+.container form .form_container .input-box input:focus ~ label,
+.container form .form_container .input-box input:valid ~ label {
+    top: -5px;
+    font-size: 0.8em;
+}
+
+.container form .form_container .input-box img {
+    position: absolute;
+    visibility: hidden;
+    right: 5px;
+    transition: visibility 0.3s;
+    cursor: pointer;
+}
+
+.container form .form_container .input-box input:valid ~ img {
+    visibility: visible;
+}
+
+/*Seconde etapes*/
+.container form .form_container .select-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 1em;
+}
+
+.container form .form_container .select-group label {
+    font-size: 1em;
+    color: var(--color2);
+    font-weight: bold;
+}
+
+.container form .form_container .select-group select {
+    background-color: var(--color3);
+    border-radius: 5px;
+    padding: 5px;
+    color: var(--color2);
+    border-color: var(--color2);
+    border-width: 2px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.container form .form_container .select-group select option {
+    font-size: 1em;
+}
+
+.container form .form_container .diplome_obtenu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.container form .form_container .diplome_obtenu h4 {
+    color: var(--color2);
+}
+
+.container form .form_container .diplome_obtenu .list_choice {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+}
+
+.container form .form_container .diplome_obtenu .list_choice .choice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+}
+
+.container form .form_container .diplome_obtenu .list_choice .choice input[type="text"] {
+    height: 100%;
+    padding: 5px;
+    width: 70%;
+    outline: none;
+    border: 2px solid var(--color2);
+    display: none;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.container form .form_container .diplome_obtenu .list_choice .choice p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.container form .form_container .diplome_obtenu .list_choice .choice p input {
+    height: 20px;
+    width: 20px;
+}
+
+.container form .form_container .diplome_obtenu .list_choice .choice p label {
+    font-size: 0.9em;
+    color: var(--color2);
+}
+
+.container form .form_container .btn_box {
+    display: flex;
+    gap: 0.5em;
+}
+
+.container form .form_container .btn_box .previous {
+    width: 40%;
+}
+
+@media screen and (min-width: 520px) {
+    .couvercle {
+        align-items: center;
+        padding: 25px 0;
+    }
+    .container {
+        width: 500px;
+        min-width: 400px;
+        border-radius: 5px;
+        box-shadow: 10px 10px 1px var(--color2);
+    }
+}
