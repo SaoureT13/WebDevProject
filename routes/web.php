@@ -38,6 +38,14 @@ Route::prefix('/student')->controller(StudentController::class)->group(function 
 
     //Créer une demande
     Route::post('/request','createRequest')->name('student.createRequest');
+
+    //Voir une demande en particulier
+    Route::get('/demande/{demande}', 'viewRequest')->where([
+        'request' => '[0-9]+'
+    ])->name('student.viewRequest');
+
+    //Filtrer ses demandes
+    Route::get('/requests/filter', 'filterRequests')->name('student.filterRequests');
 });
 
 
@@ -58,11 +66,11 @@ Route::prefix('/dashboard')->controller(AdminController::class)->group(function(
     //Voir toutes les demandes
     Route::get('/demandes', 'viewRequests')->name('admin.viewRequestsAll');
 
-    //Voir toutes les demandes en attentes
-    Route::get('/demandes/attente', 'viewsRequestPending')->name('admin.viewRequestsPending');
+    //Voir tous les étudiants
+    Route::get('/students', 'viewStudents')->name('admin.viewStudents');
 
     //Voir toutes les demandes traitées
-    Route::get('/demandes/traité', 'viewsRequestCompleted')->name('admin.viewsRequestCompleted');
+    Route::get('/teachers', 'viewTeachers')->name('admin.viewTeachers');
 
     //Voir une demande en particulier
     Route::get('/demande/{demande}', 'viewRequest')->where([
@@ -78,5 +86,11 @@ Route::prefix('/dashboard')->controller(AdminController::class)->group(function(
     Route::post('/comment_request/{demande_id}', 'commentRequest')->name('admin.commentRequest');
 
     //Filtrer les demandes
-    Route::get('/filter/demandes', 'filterRequests')->name('admin.filterRequests');
+    Route::get('/demandes/filter', 'filterRequests')->name('admin.filterRequests');
+
+    //Filtrer les étudiants
+    Route::get('/students/filter', 'filterStudents')->name('admin.filterStudents');
+
+    //Filtrer les professeurs
+Route::get('/teachers/filter', 'filterTeachers')->name('admin.filterTeachers');
 });

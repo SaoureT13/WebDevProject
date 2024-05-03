@@ -15,7 +15,6 @@ return new class extends Migration
         Schema::create('professeurs', function (Blueprint $table) {
             $table->id();
             $table->string('full_name');
-            $table->string('course');
             $table->string('contact');
             $table->timestamp('last_student_assigned_at')->nullable();
             $table->timestamps();

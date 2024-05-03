@@ -28,7 +28,7 @@ body {
     font-size: 18px;
 }
 
-.modal.active{
+.modal.active {
     display: block;
 }
 
@@ -45,8 +45,22 @@ body {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.modal h2{
+.modal h2 {
     color: var(--color2);
+    margin-bottom: 10px;
+}
+
+.modal h2, .modal h3{
+    line-height: .8;
+}
+
+.modal h3{
+    margin-top: 10px;
+    color: var(--color2);
+}
+
+.modal h2 span {
+    font-size: .4em;
 }
 
 .modal-content {
@@ -61,49 +75,120 @@ body {
 
 .modal-content .form .input-box {
     width: 100%;
-
 }
-.modal-content form{
+.modal-content form {
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 20px;
+    gap: 5px;
 }
 
-.modal-content form .input-box label{
+.modal-content form .alert-request{
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    background-color: rgba(236, 113, 113, 0.918);
+    border: 2px solid red;
+    padding: 4px 8px;
+    border-radius: 5px;
+}
+
+.modal-content form .input-box label {
+    font-size: 0.8em;
     color: var(--color2);
 }
 
-.modal-content form .input-box input{
+.modal-content form .input-box.error:hover input,
+.modal-content form .input-box.error:hover select,
+.modal-content form .input-box.error input:focus,
+.modal-content form .input-box.error select:focus,
+.modal-content form .input-box.error select,
+.modal-content form .input-box.error input {
+    border-color: red;
+}
+.modal-content form .input-box input,
+.modal-content form .input-box select {
     width: 100%;
-    height: 50px;
-    border-radius: .50em;
+    height: 40px;
+    border-radius: 0.5em;
     padding-left: 1em;
     border: 2px solid #ccc;
     outline: none;
     color: var(--color2);
-    transition: all .3s;
+    transition: all 0.3s;
+    font-size: 0.8em;
+}
+
+.modal-content form .input-box select:hover {
+    cursor: pointer;
+}
+
+.modal-content form .input-box .alert {
+    display: flex;
+    align-items: center;
+    font-size: 0.8em;
+    gap: 5px;
+    color: red;
 }
 
 .modal-content form .input-box:hover input,
-.modal-content form .input-box input:focus{
+.modal-content form .input-box:hover select,
+.modal-content form .input-box select:focus,
+.modal-content form .input-box input:focus {
     border: 2px solid var(--color2);
 }
 
-.modal-content form .btn-submit{
+.modal-content form .choice-box {
+    display: flex;
+    align-items: center;
+    font-size: 0.7em;
+    gap: 5px;
+    color: var(--color2);
+}
+
+.modal-content form .choice-box:hover > *{
+    cursor: pointer;
+}
+
+.modal-content form .choice-box input[type="checkbox"] {
+    width: 1em;
+    height: 1em;
+}
+
+.modal-content form .societe-box {
+    display: none;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.modal-content form .societe-box.active{
+    display: flex;
+}
+
+.modal-content form .societe-box .input-box{
+    width: 100%;
+}
+
+.modal-content form .societe-box .input-box input{
+    width: 100%;
+}
+
+.modal-content form .btn-submit {
     width: 100%;
     height: 50px;
     border: none;
-    border-radius: .50em;
+    border-radius: 0.5em;
     background-color: var(--color3);
     color: var(--color2);
     font-size: 1em;
     font-weight: bold;
     cursor: pointer;
-    transition: all .3s;
+    transition: all 0.3s;
 }
 
-.modal-content form .btn-submit:hover{
+.modal-content form .btn-submit:hover {
     background-color: var(--color2);
     color: var(--color3);
 }
@@ -125,39 +210,39 @@ body {
 @keyframes animatetop {
     from {
         top: -300px;
-        opacity: 0
+        opacity: 0;
     }
 
     to {
         top: 0;
-        opacity: 1
+        opacity: 1;
     }
 }
 
-.modal_request{
+.modal_request {
     position: absolute;
     right: 20px;
     bottom: 20px;
 }
 
-.modal_request button{
+.modal_request button {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: .4em .8em;
-    gap: .25em;
+    padding: 0.4em 0.8em;
+    gap: 0.25em;
     background: var(--color3);
     border: none;
-    border-radius: .50em;
+    border-radius: 0.5em;
     cursor: pointer;
 }
 
-.layout-wrapper{
+.layout-wrapper {
     width: 100%;
     display: flex;
 }
 
-.layout-container{
+.layout-container {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -251,104 +336,15 @@ body {
 .main .main__head {
     width: 100%;
     display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.main .main__head .head_filter {
-    display: flex;
     justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
-    width: 100%;
 }
 
-.main .main__head .head_filter .filter_request {
+.main .main__head form{
     display: flex;
     align-items: center;
-    width: 35%;
-}
-
-.main .main__head .head_filter .filter_request .request {
-    position: relative;
-    font-size: 1em;
-    background-color: var(--color3);
-    padding: .4em .8em;
-    border-radius: .50em;
-    cursor: pointer;
-}
-
-.main .main__head .head_filter .filter_request .request .dropdown_request {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 180px;
-    background-color: #fff;
-    border-radius: 5px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    animation: dropdownFadeIn 0.3s ease forwards;
-}
-
-@keyframes dropdownFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px); /* L'élément commence un peu en haut */
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0); /* L'élément descend à sa position originale */
-    }
-}
-
-.main
-.main__head
-.head_filter
-.filter_request
-.request:hover
-.dropdown_request {
-    display: block;
-}
-
-.main
-.main__head
-.head_filter
-.filter_request
-.request
-.dropdown_request
-.list_filter_request
-li {
-    width: 100%;
-}
-
-.main
-.main__head
-.head_filter
-.filter_request
-.request
-.dropdown_request
-.list_filter_request
-li
-a {
-    display: block;
-    width: 100%;
-    padding: 5px 0;
-    font-size: 0.8em;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
-.main
-.main__head
-.head_filter
-.filter_request
-.request
-.dropdown_request
-.list_filter_request
-li:hover
-a {
-    padding-left: 10px;
-    font-weight: bold;
+    gap: 20px;
 }
 
 .card {
@@ -376,7 +372,7 @@ a {
 }
 
 .card .table-responsive table thead th,
-.card .table-responsive table tbody td{
+.card .table-responsive table tbody td {
     border-bottom: 2px solid #ccc;
 }
 
@@ -402,23 +398,23 @@ th {
     white-space: nowrap;
 }
 
-tbody .badge-status{
+tbody .badge-status {
     color: white;
-    font-size: .8em;
+    font-size: 0.8em;
     padding: 4px 8px;
     text-align: center;
     border-radius: 5px;
 }
 
-tbody .badge-status.pending{
+tbody .badge-status.pending {
     background-color: #f0ad4e;
 }
 
-tbody .badge-status.validated{
+tbody .badge-status.validated {
     background-color: #5cb85c;
 }
 
-tbody .badge-status.rejected{
+tbody .badge-status.rejected {
     background-color: #d9534f;
 }
 
@@ -438,7 +434,7 @@ tbody .badge-status.rejected{
         display: none;
     }
 
-    .header .navigation .menu .burger_menu ion-icon{
+    .header .navigation .menu .burger_menu ion-icon {
         width: 2em;
         height: 2em;
     }
@@ -473,8 +469,12 @@ tbody .badge-status.rejected{
         padding: 15px;
     }
 
-    .main{
+    .main {
         margin-top: 70px;
     }
 
+    .modal-content form .societe-box {
+        flex-direction: row;
+        gap: 20px;
+    }
 }

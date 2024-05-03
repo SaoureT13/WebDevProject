@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Professeur;
 
 class AdminCommentRequest extends FormRequest
 {
@@ -17,7 +19,7 @@ class AdminCommentRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
@@ -27,6 +29,7 @@ class AdminCommentRequest extends FormRequest
             'comment_global_obj' => 'required|string',
             'comment_specific_obj' => 'required|string',
             'comment_result_expected' => 'required|string',
+            'professeur_id' => 'required|exists:professeurs,id',
         ];
     }
 }

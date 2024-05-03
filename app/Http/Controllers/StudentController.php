@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StudentRequest;
 use App\Models\Demande;
 use App\Models\Societe;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -21,26 +22,53 @@ class StudentController extends Controller
         }
 
         $user = Auth::guard('web')->user();
+        $societes = Societe::all();
         $demandes = $user->demandes;
-        return view('student.index', compact('demandes'));
-
+        $users = User::all();
+        return view('student.index', compact('demandes', 'societes', 'users'));
     }
 
     public function createRequest(StudentRequest $request)
     {
-//        $user = Auth::guard('web')->user();
-//        $demandes = $user->demandes;
+        $user = Auth::guard('web')->user();
+        $latestDemande = $user->demandes()->latest()->first();
 
-        $company_id = null;
-        if ($request->input('company_id')) {
-            $company_id = $request->input('company_id');
+        // $partner = User::find($request->validated()['partner_id']);
+        // if($partner){
+        //     if($partner->parcours_id != $user->parcours_id){
+        //         return redirect()->back()->with('error', 'Vous ne pouvez pas faire une demande avec un étudiant d\'un autre parcours.');
+        //     };
+            
+        //     if($partner->diplome_prepare_id != $user->diplome_prepare_id){
+        //         return redirect()->back()->with('error', 'Vous ne pouvez pas faire une demande avec un étudiant qui prepare un diplôme autre que le votre.');
+        //     };
+
+        //     if($partner->demandes()->latest()->first() && $partner->demandes()->latest()->first()->request_status == null){
+        //         return redirect()->back()->with('error', 'Votre partenaire a déjà une demande en cours de traitement.');
+        //     }
+
+        //     if($partner->demandes()->latest()->first() && $partner->demandes()->latest()->first()->request_status == 1){
+        //         return redirect()->back()->with('error', 'Votre partenaire a déjà un professeur suiveur.');
+        //     }
+        // }
+
+        if ($latestDemande && $latestDemande->request_status == null) {
+            return redirect()->back()->with('error', 'Vous avez déjà une demande en cours de traitement(pourquoi tu veux faire une requête encore ahy man).');
         }
-        if ($request->input('company_name') && $request->input('company_contact')) {
-            $company = Societe::create([
-                'name' => $request->input('company_name'),
-                'contact' => $request->input('company_contact')
-            ]);
+
+        if ($latestDemande && $latestDemande->request_status == 1) {
+            return redirect()->back()->with('error', 'Vous avez déjà un professeur suiveur(pourquoi tu veux faire une requête encore ahy man).');
         }
+
+        $validated = $request->validate([
+            'company_name'=> 'required',
+            'company_contact'=> 'required|regex:/^[\d\s]+$/'
+        ]);
+
+        $societe_id = $request->input('choice') == "on" ? Societe::create([
+            'name' => $validated['company_name'],
+            'contact' => $validated['company_contact']
+        ])->id : $request->input('societe_id');
 
         $deposit_date = Carbon::now();
         $demande = Demande::create([
@@ -50,14 +78,79 @@ class StudentController extends Controller
             'specific_objective' => $request->validated()['specific_objective'],
             'expected_result' => $request->validated()['expected_result'],
             'deposit_date' => $deposit_date,
-            'societe_id' => $company_id ? $company_id : $company->id
+            'societe_id' => $societe_id
         ]);
 
         Auth::guard('web')->user()->demandes()->attach($demande->id);
+        // if ($partner) {
+        //     $partner->demandes()->attach($demande->id);
+        // }
 
 
-        return redirect('/student/home');
+        return redirect()->back();
+    }
 
+    public function viewRequest(Demande $demande, Request $request)
+    {
 
+        if (!auth('web')->check()) {
+            return redirect('/student/login')->with('error', 'Vous devez vous connecter pour accéder à cette page.');
+        }
+
+        $users = User::all();
+        $societes = Societe::all();
+
+        if ($request->header('HX-Request')) {
+            return view('student.partials.show', [
+                'demande' => $demande,
+
+            ]);
+        } else {
+            return view('student.show', [
+                'demande' => $demande,
+                'users' => $users,
+                'societes' => $societes
+            ]);
+        }
+    }
+
+    public function filterRequests(Request $request)
+    {
+        if (!auth('web')->check()) {
+            return redirect('/student/login')->with('error', 'Vous devez vous connecter pour accéder à cette page.');
+        }
+
+        $demandes = Demande::query();
+
+        if ($request->input('request_status')) {
+            if ($request->input('request_status') == 2) {
+                $demandes->where('request_status', null);
+            } else {
+                $demandes->where('request_status', $request->input('request_status'));
+            }
+        }
+
+        $demandes->whereHas('users', function ($query) {
+            $query->where('id', Auth::guard('web')->user()->id);
+        });
+
+        $demandes = $demandes->get();
+
+        // return view('student.partials.demandes', compact('demandes'));
+
+        // $demandes = $demandes->with('users')->get();
+        if ($request->header('HX-Request')) {
+            return view('student.partials.demandes', [
+                'demandes' => $demandes,
+                'request_status' => $request->input('request_status')
+            ]);
+        } else {
+            return view('student.index', [
+                'demandes' => $demandes,
+                'request_status' => $request->input('request_status'),
+                'users' => User::all(),
+                'societes' => Societe::all()
+            ]);
+        }
     }
 }

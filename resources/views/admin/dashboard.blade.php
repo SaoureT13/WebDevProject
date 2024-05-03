@@ -17,62 +17,45 @@
             </div>
             <ul class="menu">
                 <li class="active menu-item">
-                    <div class="menu-link">
+                    <a href=""
+                       class="menu-link"
+                       hx-get="/dashboard/demandes"
+                       hx-swap="innerHTML"
+                       hx-target="#main"
+                       hx-trigger="click"
+                       hx-push-url="true"
+                        {{--                       hx-history="false"--}}
+                    >
                         <ion-icon name="mail-outline"></ion-icon>
                         Demandes
-                    </div>
-                    <ul class="option-sub">
-                        <li class="sub-item active">
-                            <a
-                                href=""
-                                hx-get="/dashboard/demandes"
-                                hx-swap="innerHTML"
-                                hx-target=".table-responsive"
-                                hx-trigger="click"
-                                hx-push-url="true"
-                            >Toutes les demandes</a>
-                        </li>
-                        <li class="sub-item">
-                            <a
-                                href=""
-                                hx-get="{{ route('admin.viewRequestsPending') }}"
-                                hx-swap="innerHTML"
-                                hx-target=".table-responsive"
-                                hx-trigger="click"
-                                hx-push-url="true"
-                            >Demandes en attente</a>
-                        </li>
-                        <li class="sub-item">
-                            <a
-                                href=""
-                                hx-get="{{ route('admin.viewsRequestCompleted') }}"
-                                hx-swap="innerHTML"
-                                hx-target=".table-responsive"
-                                hx-trigger="click"
-                                hx-push-url="true"
-                            >Demandes traité</a>
-                        </li>
-                    </ul>
+                    </a>
                 </li>
                 <li class="menu-item">
-                    <div class="menu-link">
+                    <a
+                        href=""
+                        class="menu-link"
+                        hx-get="{{ route('admin.viewStudents') }}"
+                        hx-swap="innerHTML"
+                        hx-target="#main"
+                        hx-trigger="click"
+                        hx-push-url="true"
+                        {{--                        hx-history="false"--}}
+                    >
                         <ion-icon name="people-outline"></ion-icon>
-                        Etudiants
-                    </div>
-                    <ul class="option-sub">
-                        <li class="sub-item"><a href="#">Etudiants inscrit</a></li>
-                        <li class="sub-item"><a href="#">Etudiants avec thème validé</a></li>
-                    </ul>
+                        Étudiants
+                    </a>
                 </li>
                 <li class="menu-item">
-                    <div class="menu-link">
+                    <a href=""
+                       class="menu-link"
+                       hx-get="{{ route('admin.viewTeachers') }}"
+                       hx-swap="innerHTML"
+                       hx-target="#main"
+                       hx-trigger="click"
+                       hx-push-url="true">
                         <ion-icon name="person-outline"></ion-icon>
                         Professeurs
-                    </div>
-                    <ul class="option-sub">
-                        <li class="sub-item"><a href="#">Tous les professeurs</a></li>
-                        <li class="sub-item"><a href="#">Professeurs affiliés</a></li>
-                    </ul>
+                    </a>
                 </li>
                 <li class="item-deconnexion">
                     <form action="{{ route('admin.logout') }}" method="post">
@@ -82,7 +65,8 @@
                             class="btn-deconnexion"
                         >
                             <ion-icon name="log-out-outline" role="img" title="deconnexion"></ion-icon>
-                            Deconnexion</button>
+                            Deconnexion
+                        </button>
                     </form>
                 </li>
             </ul>
@@ -116,7 +100,9 @@
                             <form hx-get="{{ route('admin.filterRequests') }}"
                                   hx-swap="innerHTML"
                                   hx-target=".table-responsive"
-                                    hx-push-url="true">
+                                  hx-push-url="true"
+                                {{--                                  hx-history="false"--}}
+                            >
                                 <div class="filter-item-society">
                                     <label for="filter_societe">Filtrer par société:</label>
                                     <select
@@ -128,7 +114,7 @@
                                         @foreach($societes as $societe)
                                             <option
                                                 value="{{ $societe->id }}"
-                                                @if(Session::has('societe_id') && Session::get('societe_id') == $societe->id ) selected @endif
+                                                @if(isset($societe_id) && $societe_id == $societe->id ) selected @endif
                                             >{{ $societe->name }}</option>
                                         @endforeach
                                     </select>
@@ -145,9 +131,33 @@
                                         @foreach($diplomes as $diplome)
                                             <option
                                                 value="{{ $diplome->id }}"
-                                                @if(Session::has('diplome_prepare_id') && Session::get('diplome_prepare_id') == $diplome->id ) selected @endif
+                                                @if(isset($diplome_prepare_id) && $diplome_prepare_id == $diplome->id ) selected @endif
                                             >{{ $diplome->name }}</option>
                                         @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="filter-item-diplome">
+                                    <label for="filter_diplome">Filtrer par status:</label>
+                                    <select
+                                        name="request_status"
+                                        id="filter_status"
+                                        class=""
+                                    >
+                                        <option value="">Tous</option>
+                                        <option
+                                            value="2"
+                                            @if(isset($request_status) && $request_status == 2 ) selected @endif>En
+                                            attente
+                                        </option>
+                                        <option
+                                            value="1"
+                                            @if(isset($request_status) && $request_status == 1 ) selected @endif>Validé
+                                        </option>
+                                        <option
+                                            value="00"
+                                            @if(isset($request_status) && $request_status == 0 ) selected @endif>Refusé
+                                        </option>
                                     </select>
                                 </div>
 
@@ -173,7 +183,9 @@
                                     <tbody>
                                     @foreach($demandes as $demande)
                                         <tr hx-get="{{ route('admin.viewRequest', ['demande' => $demande->id]) }}"
-                                            hx-target=".main" hx-swap="innerHTML" hx-push-url="true">
+                                            hx-target=".main" hx-swap="innerHTML" hx-push-url="true"
+                                            {{--                                            hx-history="false"--}}
+                                        >
                                             <td class="text-truncate">{{ $demande->users->first()->full_name }}</td>
                                             <td class="text-truncate">{{ $demande->users->first()->serial_number }}</td>
                                             <td class="text-truncate">{{ $demande->users->first()->diplome_prepare->name}}</td>

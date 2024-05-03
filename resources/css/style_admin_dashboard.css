@@ -163,6 +163,7 @@ body {
 .layout-container .vertical-menu .menu li.active .menu-link{
     background: var(--color3);
     border-radius: 0 50rem 50rem 0;
+    color: #000;
 }
 
 .layout-container .vertical-menu .menu li:not(.active) .menu-link:hover,
@@ -186,31 +187,6 @@ body {
 .layout-container .vertical-menu .menu .menu-item:hover .menu-link::after,
 .layout-container .vertical-menu .menu .menu-item.active .menu-link::after  {
     transform: rotate(90deg);
-}
-
-.layout-container .vertical-menu .menu .menu-item .option-sub {
-    display: block;
-    height: 0;
-    overflow: hidden;
-    transition: height 0.4s ease;
-}
-
-.layout-container .vertical-menu .menu .menu-item:nth-child(1):hover .option-sub,
-.layout-container .vertical-menu .menu .menu-item.active:nth-child(1) .option-sub{
-    display: block;
-    height: 170px;
-}
-
-.layout-container .vertical-menu .menu .menu-item:nth-child(2):hover .option-sub,
-.layout-container .vertical-menu .menu .menu-item:nth-child(3):hover .option-sub,
-.layout-container .vertical-menu .menu .menu-item.active:nth-child(2) .option-sub,
-.layout-container .vertical-menu .menu .menu-item.active:nth-child(3) .option-sub {
-    display: block;
-    height: 120px;
-}
-
-.option-sub li a {
-    font-size: 0.7em;
 }
 
 .content-wrapper {
@@ -298,6 +274,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .content-wrapper .container .main .filter-bar .filter form select {
@@ -307,12 +285,21 @@ body {
     border: none;
     outline: none;
     padding: 4px 8px;
+    cursor: pointer;
+}
+
+.content-wrapper .container .main .filter-bar .filter form select:hover{
+    cursor: pointer;
 }
 
 .content-wrapper .container  .main .filter-bar .filter form select option {
     background: var(--color2);
     color: white;
     font-size: 0.9em;
+}
+
+.content-wrapper .container  .main .filter-bar .filter form select option:hover{
+    cursor: pointer;
 }
 
 .content-wrapper .container .main .filter-bar .filter form .btn{

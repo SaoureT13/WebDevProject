@@ -16,9 +16,7 @@
                     partenaire si c'est le cas)</span></h2>
             <form action="{{ url('/student/request') }}" method="post">
                 @csrf
-                @if (session('error'))
-                    <div class="alert-request"><p>{{ session('error') }}</p></div>
-                @endif
+
                 <div class="input-box">
                     <label for="partner">Partenaire:</label><br>
                     <select name="partner_id" id="partner">
@@ -153,73 +151,66 @@
             </header>
 
             <main class="main" id="main">
-                <div class="main__head">
-                    <h1>Mes demandes:</h1>
-                    <form hx-get="{{ route('student.filterRequests') }}" hx-target="#table-responsive"
-                        hx-swap="innerHTML" hx-push-url="true">
-                        <div class="filter-request">
-                            <label for="filter_diplome">Filtrer par status:</label>
-                            <select name="request_status" id="filter_status" class="">
-                                <option value="">Tous</option>
-                                <option value="2" @if (isset($request_status) && $request_status == 2) selected @endif>En
-                                    attente
-                                </option>
-                                <option value="1" @if (isset($request_status) && $request_status == 1) selected @endif>Validé
-                                </option>
-                                <option value="00" @if (isset($request_status) && $request_status == 0) selected @endif>Refusé
-                                </option>
-                            </select>
+              <div class="details-container">
+                @if (Session::has('success'))
+                    <div class="toast">
+                        <svg width="30" height="30" viewBox="0 0 20 20" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M19.7986 10.1111C19.7986 15.4614 15.4614 19.7986 10.1111 19.7986C4.76081 19.7986 0.423584 15.4614 0.423584 10.1111C0.423584 4.76081 4.76081 0.423584 10.1111 0.423584C15.4614 0.423584 19.7986 4.76081 19.7986 10.1111ZM8.99054 15.2405L16.178 8.05304C16.4221 7.80898 16.4221 7.41323 16.178 7.16917L15.2942 6.2853C15.0501 6.0412 14.6544 6.0412 14.4103 6.2853L8.54858 12.1469L5.8119 9.41026C5.56784 9.1662 5.1721 9.1662 4.928 9.41026L4.04413 10.2941C3.80007 10.5382 3.80007 10.9339 4.04413 11.178L8.10663 15.2405C8.35073 15.4846 8.74644 15.4846 8.99054 15.2405V15.2405Z"
+                                fill="#55B938" fill-opacity="0.7" />
+                        </svg>
+                        <p>{{ Session::get('success') }}</p>
+                    </div>
+                @endif
+                <div class="details">
+                    <div class="detail-item">
+                        <label><u><strong>Thème :</strong></u> <span class="response">{{ $demande->theme }}</span></label>
+                    </div>
+                    <div class="detail-item">
+                        <label><u><strong>Problèmes de mémoire :</strong></u>
+                            <span
+                                class="response">{{ $demande->memory_problems }}</span></label>
+                    </div>
+                    <div class="detail-item">
+                        <label><u><strong>Objectif global :</strong></u> <span
+                                class="response">{{ $demande->global_objective }}</span></label>
+                    </div>
+                    <div class="detail-item">
+                        <label><u><strong>Objectif spécifique :</strong></u> <span
+                                id="response">{{ $demande->specific_objective }}</span></label>
+                    </div>
+                    <div class="detail-item">
+                        <label><u><strong>Résultat attendu :</strong></u> <span
+                                id="response">{{ $demande->expected_result }}</span></label>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-item">
+                            <label><u><strong>Date de dépôt :</strong></u> <span
+                                    id="response">{{ $demande->deposit_date }}</span></label>
                         </div>
-
-                        <button type="submit">Filtrer</button>
-                    </form>
-                </div>
-
-                <div class="content">
-                    <div class="card">
-                        <div class="table-responsive" id="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th class="text-truncate">Thème</th>
-                                        <th class="text-truncate">Société</th>
-                                        <th class="text-truncate">Date d'envoie</th>
-                                        <th class="text-truncate" colspan="2">Statut</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="demandes" class="demandes">
-                                    @foreach ($demandes as $demande)
-                                        <tr>
-                                            <td class="text-truncate">{{ $demande->theme }}</td>
-                                            <td class="text-truncate">{{ $demande->societe->name }}</td>
-                                            <td class="text-truncate">{{ $demande->deposit_date }}</td>
-                                            <td class="text-truncate">
-                                                <span
-                                                    class="badge-status
-                                                @if (is_null($demande->request_status)) pending
-                                                @elseif($demande->request_status == 1) validated
-                                                @else rejected @endif">
-                                                    @if (is_null($demande->request_status))
-                                                        En attente
-                                                    @elseif($demande->request_status == 1)
-                                                        Validé
-                                                    @else
-                                                        Refusé
-                                                    @endif
-                                                </span>
-                                            </td>
-                                            <td class="text-truncate"
-                                                hx-get={{ route('student.viewRequest', ['demande' => $demande]) }}
-                                                hx-target="#main" hx-swap="innerHTML" hx-push-url="true">
-                                                <button>Détails</button>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                        <div class="detail-item">
+                            <label><u><strong>Statut de la demande :</strong></u>
+                                <span
+                                    class="badge-status
+                              @if (is_null($demande->request_status)) pending
+                              @elseif($demande->request_status == 1) validated
+                              @else rejected @endif">
+                                    @if (is_null($demande->request_status))
+                                        En attente
+                                    @elseif($demande->request_status == 1)
+                                        Validé
+                                    @else
+                                        Refusé
+                                    @endif
+                                </span>
+                            </label>
                         </div>
                     </div>
                 </div>
+                <a hx-get="/dashboard/demandes" hx-swap="innerHTML" hx-target="#main" hx-trigger="click"
+                    hx-push-url="true" class="back">Retour</a>
+              </div>
             </main>
 
             <footer class="footer"></footer>
@@ -230,10 +221,6 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script>
         @if ($errors->any())
-            document.getElementById('myModal').classList.add('active');
-        @endif
-
-        @if (session('error'))
             document.getElementById('myModal').classList.add('active');
         @endif
     </script>

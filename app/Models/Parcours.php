@@ -18,4 +18,9 @@ class Parcours extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function professeurs(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Professeur::class);
+    }
 }

@@ -23,13 +23,13 @@ class StudentRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'partner_id' => 'nullable|exists:users,id',
             'theme'=> 'required',
             'memory_problems'=> 'required',
             'global_objective'=> 'required',
             'specific_objective'=> 'required',
             'expected_result'=> 'required',
-            'company_name'=> 'required',
-            'company_contact'=> 'required|regex:/^[\d\s]+$/'
+            'societe_id' => 'exists:societes,id'
         ];
     }
 }

@@ -1,0 +1,101 @@
+.details-container {
+  /*max-width: 1080px;*/
+  max-width: 100%;
+  /*margin: 0 auto;*/
+  /* margin: 0 20px; */
+  padding: 20px;
+  border-radius:   10px;
+  background-color: var(--color3);
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.container .detail-item:nth-child(6){
+  align-items: start;
+  gap: 1em;
+  flex-direction: column;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.validate {
+  background-color: #4c6baf;
+}
+
+.validate:hover {
+  background-color: #435c94;
+}
+
+.refuse {
+  background-color: #f44336;
+}
+
+.refuse:hover {
+  background-color: #e53935;
+}
+
+.back {
+  display: inline-block;
+  margin-top: 20px;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.back:hover {
+  color: #000;
+}
+
+.badge-status{
+  background-color: #45a049;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: .8em;
+  font-weight: bold;
+  color: #fff;
+}
+
+.owner-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+

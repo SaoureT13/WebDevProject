@@ -21,6 +21,10 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->foreignIdFor(Parcours::class)->constrained()->cascadeOnDelete();
         });
+
+        Schema::table('professeurs', function (Blueprint $table) {
+            $table->foreignIdFor(Parcours::class)->nullable()->constrained()->cascadeOnDelete();
+        });
     }
 
     /**

@@ -130,7 +130,12 @@ h1 {
 .comment-section form{
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
+}
+
+.comment-section form h2{
+    font-size: 1.2em;
+    color: var(--color2);
 }
 
 .comment-section form .input-group{
@@ -140,13 +145,19 @@ h1 {
 }
 
 .comment-section form .input-group.error input,
+.comment-section form .input-group.error select,
+.comment-section form .input-group.error:hover select,
+.comment-section form .input-group.error select:focus,
+.comment-section form .input-group.error input,
 .comment-section form .input-group.error:hover input,
 .comment-section form .input-group.error input:focus{
     border-color: red;
 }
 
 .comment-section form .input-group input:focus,
-.comment-section form .input-group:hover input{
+.comment-section form .input-group select:focus,
+.comment-section form .input-group:hover input,
+.comment-section form .input-group:hover select{
     border-color: var(--color2);
 }
 
@@ -156,13 +167,19 @@ h1 {
 }
 
 
-.comment-section form .input-group input{
+.comment-section form .input-group input,
+.comment-section form .input-group select{
     padding: 10px;
     border-radius: 5px;
     border: 2px solid #ccc;
     outline: none;
     transition: all .3s;
     font-size: .8em;
+    color: var(--color2);
+}
+
+.comment-section form .input-group select:hover{
+    cursor: pointer;
 }
 
 .comment-section form .input-group .alert{
