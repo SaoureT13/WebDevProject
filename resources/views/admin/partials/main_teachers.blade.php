@@ -4,6 +4,7 @@
               hx-swap="innerHTML"
               hx-target=".table-responsive"
               hx-push-url="true"
+              hx-indicator="#loader-two"
             {{--                                    hx-history="false"--}}
         >
             <div class="filter-item-teacher">
@@ -42,6 +43,9 @@
 </div>
 
 <div class="content">
+    <div class="container-loader htmx-indicator" id="loader-two">
+        <div class="loader"></div>
+    </div> 
     <div class="card">
         <div class="table-responsive">
             <table class="table">

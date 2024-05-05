@@ -1,4 +1,4 @@
-.toast{
+.toast {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -11,9 +11,17 @@
     color: #000;
     background: #fff;
     border: 2px solid #5cb85c;
-    font-size: .8em;
+    font-size: 0.8em;
     font-weight: 600;
     z-index: 1000;
+}
+
+.back{
+    cursor: pointer;
+}
+
+.back:hover{
+    text-decoration: underline;
 }
 .details-container {
     /*max-width: 1080px;*/
@@ -21,9 +29,9 @@
     /*margin: 0 auto;*/
     margin: 0 20px;
     padding: 20px;
-    border-radius:   10px;
+    border-radius: 10px;
     background-color: var(--color3);
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
@@ -39,7 +47,7 @@ h1 {
     padding: 20px;
     border-radius: 10px;
     background-color: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .detail-item {
@@ -47,7 +55,7 @@ h1 {
     justify-content: space-between;
     align-items: center;
 }
-.container .detail-item:nth-child(6){
+.container .detail-item:nth-child(6) {
     align-items: start;
     gap: 1em;
     flex-direction: column;
@@ -59,12 +67,29 @@ h1 {
 }
 
 .btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     padding: 10px 20px;
     border-radius: 5px;
     border: none;
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    position: relative;
+}
+
+.btn:disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn .htmx-indicator{
+    display: none;
+}
+
+.btn.htmx-request .htmx-indicator{
+    display: inline-block;
 }
 
 .validate {
@@ -95,11 +120,11 @@ h1 {
     color: #000;
 }
 
-.badge{
+.badge {
     background-color: #45a049;
     padding: 4px 8px;
     border-radius: 20px;
-    font-size: .8em;
+    font-size: 0.8em;
     font-weight: bold;
     color: #fff;
 }
@@ -112,11 +137,11 @@ h1 {
     padding: 20px;
     border-radius: 10px;
     background-color: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /*SECTION-COMMENT*/
-.comment-section{
+.comment-section {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -124,21 +149,21 @@ h1 {
     padding: 20px;
     border-radius: 10px;
     background-color: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.comment-section form{
+.comment-section form {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.comment-section form h2{
+.comment-section form h2 {
     font-size: 1.2em;
     color: var(--color2);
 }
 
-.comment-section form .input-group{
+.comment-section form .input-group {
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -150,51 +175,54 @@ h1 {
 .comment-section form .input-group.error select:focus,
 .comment-section form .input-group.error input,
 .comment-section form .input-group.error:hover input,
-.comment-section form .input-group.error input:focus{
+.comment-section form .input-group.error input:focus {
     border-color: red;
 }
 
 .comment-section form .input-group input:focus,
 .comment-section form .input-group select:focus,
 .comment-section form .input-group:hover input,
-.comment-section form .input-group:hover select{
+.comment-section form .input-group:hover select {
     border-color: var(--color2);
 }
 
-.comment-section form .input-group label{
-    font-size: .8em;
+.comment-section form .input-group label {
+    font-size: 0.8em;
     color: var(--color2);
 }
 
-
 .comment-section form .input-group input,
-.comment-section form .input-group select{
+.comment-section form .input-group select {
     padding: 10px;
     border-radius: 5px;
     border: 2px solid #ccc;
     outline: none;
-    transition: all .3s;
-    font-size: .8em;
+    transition: all 0.3s;
+    font-size: 0.8em;
     color: var(--color2);
 }
 
-.comment-section form .input-group select:hover{
+.comment-section form .input-group select:hover {
     cursor: pointer;
 }
 
-.comment-section form .input-group .alert{
+.comment-section form .input-group .alert {
     display: flex;
     align-items: center;
     gap: 5px;
     color: red;
-    font-size: .8em;
+    font-size: 0.8em;
 }
 
-.comment-section form .input-group .alert ion-icon{
+.comment-section form .input-group .alert ion-icon {
     font-size: 1.2em;
 }
 
-.comment-section form button{
+.comment-section form button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
     padding: 10px 20px;
     border-radius: 5px;
     color: #fff;
@@ -205,7 +233,20 @@ h1 {
     background-color: var(--color2);
 }
 
-.comment-section form button:hover{
+.comment-section form button .htmx-indicator{
+    display: none;
+}
+
+.comment-section form.htmx-request button .htmx-indicator{
+    display: inline-block;
+}
+
+.comment-section form button:disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.comment-section form button:hover {
     background: var(--color3);
     color: var(--color2);
 }

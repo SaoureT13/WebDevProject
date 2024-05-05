@@ -170,6 +170,12 @@ class AdminController extends Controller
             $user->save();
         };
 
+        if ($demande->users->count() >= 2) {
+            $partner = $demande->users[1];
+            $partner->professeur_id = $request->validated()['professeur_id'];
+            $partner->save();
+        }
+
         //Envoyé un message à l'utilisateur
 //        $sid    = env('TWILIO_SID');
 //        $token  = env('TWILIO_TOKEN');

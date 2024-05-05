@@ -76,6 +76,8 @@ h1 {
 
 .back:hover {
   color: #000;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .badge-status{

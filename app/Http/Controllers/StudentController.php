@@ -28,6 +28,23 @@ class StudentController extends Controller
         return view('student.index', compact('demandes', 'societes', 'users'));
     }
 
+    public function back(Request $request){
+        if (!auth('web')->check()) {
+            return redirect('/student/login')->with('error', 'Vous devez vous connecter pour accéder à cette page.');
+        }
+
+        $user = Auth::guard('web')->user();
+        $societes = Societe::all();
+        $demandes = $user->demandes;
+        $users = User::all();
+
+        if($request->header('HX-Request')){
+            return view('student.partials.main', compact('demandes', 'societes', 'users'));
+        }else{
+            return view('student.index', compact('demandes', 'societes', 'users'));
+        }
+    }
+
     public function createRequest(StudentRequest $request)
     {
         $user = Auth::guard('web')->user();

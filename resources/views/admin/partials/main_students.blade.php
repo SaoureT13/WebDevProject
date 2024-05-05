@@ -3,7 +3,8 @@
         <form hx-get="{{ route('admin.filterStudents') }}"
               hx-swap="innerHTML"
               hx-target=".table-responsive"
-              hx-push-url="true">
+              hx-push-url="true"
+              hx-indicator="#loader-two">
             <div class="filter-item-society">
                 <label for="filter_societe">Filtrer par société:</label>
                 <select
@@ -44,6 +45,9 @@
 </div>
 
 <div class="content">
+    <div class="container-loader htmx-indicator" id="loader-two">
+        <div class="loader"></div>
+    </div>
     <div class="card">
         <div class="table-responsive">
             <table class="table">

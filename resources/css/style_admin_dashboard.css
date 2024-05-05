@@ -48,14 +48,14 @@ body {
     border-right: 2px solid #ccc;
     z-index: 1000;
     background: #fff;
-    transition: all .3s;
+    transition: all 0.3s;
 }
 
-.layout-container .vertical-menu.active{
+.layout-container .vertical-menu.active {
     left: 0;
 }
 
-.layout-container .overlay{
+.layout-container .overlay {
     position: fixed;
     left: 0;
     top: 0;
@@ -66,7 +66,7 @@ body {
     visibility: hidden;
 }
 
-.layout-container .vertical-menu.active ~ .overlay{
+.layout-container .vertical-menu.active ~ .overlay {
     visibility: visible;
 }
 
@@ -90,25 +90,25 @@ body {
     margin-top: 0.275em;
 }
 
-.layout-container .vertical-menu .menu .item-deconnexion{
+.layout-container .vertical-menu .menu .item-deconnexion {
     display: flex;
     align-items: center;
     letter-spacing: 0.15px;
-    transition: all .3s;
+    transition: all 0.3s;
 }
 
-.layout-container .vertical-menu .menu .item-deconnexion:hover{
+.layout-container .vertical-menu .menu .item-deconnexion:hover {
     border-radius: 0 50rem 50rem 0;
     background: var(--color2);
     color: #fff;
     cursor: pointer;
 }
 
-.layout-container .vertical-menu .menu .item-deconnexion form{
+.layout-container .vertical-menu .menu .item-deconnexion form {
     width: 100%;
 }
 
-.layout-container .vertical-menu .menu .item-deconnexion form .btn-deconnexion{
+.layout-container .vertical-menu .menu .item-deconnexion form .btn-deconnexion {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -120,12 +120,23 @@ body {
     width: 100%;
 }
 
-.layout-container .vertical-menu .menu .item-deconnexion form .btn-deconnexion ion-icon{
+.layout-container
+    .vertical-menu
+    .menu
+    .item-deconnexion
+    form
+    .btn-deconnexion
+    ion-icon {
     width: 1.4em;
     height: 1.4em;
 }
 
-.layout-container .vertical-menu .menu .item-deconnexion  form .btn-deconnexion:hover{
+.layout-container
+    .vertical-menu
+    .menu
+    .item-deconnexion
+    form
+    .btn-deconnexion:hover {
     cursor: pointer;
 }
 
@@ -160,7 +171,7 @@ body {
     width: 1.4em;
     height: 1.4em;
 }
-.layout-container .vertical-menu .menu li.active .menu-link{
+.layout-container .vertical-menu .menu li.active .menu-link {
     background: var(--color3);
     border-radius: 0 50rem 50rem 0;
     color: #000;
@@ -185,7 +196,7 @@ body {
 }
 
 .layout-container .vertical-menu .menu .menu-item:hover .menu-link::after,
-.layout-container .vertical-menu .menu .menu-item.active .menu-link::after  {
+.layout-container .vertical-menu .menu .menu-item.active .menu-link::after {
     transform: rotate(90deg);
 }
 
@@ -270,7 +281,7 @@ body {
     width: 100%;
 }
 
-.content-wrapper .container .main .filter-bar .filter form{
+.content-wrapper .container .main .filter-bar .filter form {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -288,24 +299,48 @@ body {
     cursor: pointer;
 }
 
-.content-wrapper .container .main .filter-bar .filter form select:hover{
+.content-wrapper .container .main .filter-bar .filter form select:hover {
     cursor: pointer;
 }
 
-.content-wrapper .container  .main .filter-bar .filter form select option {
+.content-wrapper .container .main .filter-bar .filter form select option {
     background: var(--color2);
     color: white;
     font-size: 0.9em;
 }
 
-.content-wrapper .container  .main .filter-bar .filter form select option:hover{
+.content-wrapper .container .main .filter-bar .filter form select option:hover {
     cursor: pointer;
 }
 
-.content-wrapper .container .main .filter-bar .filter form .btn{
+.content-wrapper .container .main .filter-bar .filter form .btn {
     color: white;
     font-weight: bold;
     background: var(--color2);
+}
+
+.content-wrapper .container .main .content{
+    position: relative;
+}
+
+.content-wrapper .container .main .content .container-loader{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+}
+
+.content-wrapper .container .main .content .container-loader.htmx-request.htmx-indicator{
+    display: block;
+}
+
+.content-wrapper .container .main .content .container-loader.htmx-request.htmx-indicator~.card{
+    display: none;
+}
+
+.content-wrapper .container .main .content .container-loader .loader{
+    top: 40%;
+    left: 48%;
 }
 
 .card {
@@ -332,7 +367,7 @@ body {
 }
 
 .card .table-responsive table thead th,
-.card .table-responsive table tbody td{
+.card .table-responsive table tbody td {
     border-bottom: 2px solid #ccc;
 }
 
@@ -348,26 +383,26 @@ th {
     text-align: start;
 }
 
-.badge-status{
+.badge-status {
     color: white;
-    font-size: .8em;
+    font-size: 0.8em;
     padding: 4px 8px;
     text-align: center;
     border-radius: 5px;
 }
 
-.badge-status.pending{
+.badge-status.pending {
     background-color: #f0ad4e;
 }
 
-.badge-status.validated{
+.badge-status.validated {
     background-color: #5cb85c;
 }
 
-.badge-status.rejected{
+.badge-status.rejected {
     background-color: #d9534f;
 }
-tbody tr:hover{
+tbody tr:hover {
     cursor: pointer;
     background-color: #f4f5fa;
 }
@@ -380,6 +415,56 @@ tbody tr:hover{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.container-loader {
+    position: fixed;
+    width: 100%;
+    top: 4em;
+    bottom: 0;
+    display: none;
+}
+
+.container-loader.htmx-request.htmx-indicator{
+    display: block;
+}
+
+.container-loader.htmx-request.htmx-indicator~.main{
+    display: none;
+}
+
+.container-loader .loader {
+    position: absolute;
+    top: 40%;
+    left: 35%;
+    width: 50px;
+    aspect-ratio: 1;
+    display: grid;
+    -webkit-mask: conic-gradient(from 15deg, #0000, #000);
+    animation: l26 1s infinite steps(12);
+}
+.loader,
+.loader:before,
+.loader:after {
+    background: radial-gradient(closest-side at 50% 12.5%, #000 96%, #0000)
+            50% 0/20% 80% repeat-y,
+        radial-gradient(closest-side at 12.5% 50%, #000 96%, #0000) 0 50%/80%
+            20% repeat-x;
+}
+.loader:before,
+.loader:after {
+    content: "";
+    grid-area: 1/1;
+    transform: rotate(30deg);
+}
+.loader:after {
+    transform: rotate(60deg);
+}
+
+@keyframes l26 {
+    100% {
+        transform: rotate(1turn);
+    }
 }
 
 @media screen and (min-width: 576px) {

@@ -16,7 +16,9 @@
                     partenaire si c'est le cas)</span></h2>
             <form action="{{ url('/student/request') }}" method="post">
                 @csrf
-
+                @if (session('error'))
+                    <div class="alert-request"><p>{{ session('error') }}</p></div>
+                @endif
                 <div class="input-box">
                     <label for="partner">Partenaire:</label><br>
                     <select name="partner_id" id="partner">
@@ -208,8 +210,8 @@
                         </div>
                     </div>
                 </div>
-                <a hx-get="/dashboard/demandes" hx-swap="innerHTML" hx-target="#main" hx-trigger="click"
-                    hx-push-url="true" class="back">Retour</a>
+                <a hx-get="{{ route('backHome') }}" hx-swap="innerHTML" hx-target="#main" hx-trigger="click"
+                    hx-push-url="true" hx-indicator="#container-loader" class="back">Retour</a>
               </div>
             </main>
 
@@ -221,6 +223,10 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script>
         @if ($errors->any())
+            document.getElementById('myModal').classList.add('active');
+        @endif
+
+        @if (session('error'))
             document.getElementById('myModal').classList.add('active');
         @endif
     </script>

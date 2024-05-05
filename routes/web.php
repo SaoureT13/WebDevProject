@@ -36,6 +36,9 @@ Route::prefix('/student')->controller(StudentController::class)->group(function 
     //home
     Route::get('/home', 'home')->name('home');
 
+    //Back
+    Route::get('/home', 'back')->name('backHome');
+
     //Créer une demande
     Route::post('/request','createRequest')->name('student.createRequest');
 

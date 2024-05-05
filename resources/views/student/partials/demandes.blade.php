@@ -28,7 +28,8 @@
                         @endif
                     </span>
                 </td>
-                <td class="text-truncate">
+                <td class="text-truncate" hx-get={{ route('student.viewRequest', ['demande' => $demande]) }}
+                    hx-target="#main" hx-swap="innerHTML" hx-push-url="true">
                     <button>Détails</button>
                 </td>
             </tr>
