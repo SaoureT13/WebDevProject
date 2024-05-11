@@ -13,7 +13,7 @@
     box-sizing: border-box;
 }
 
-a:visited{
+a:visited {
     color: var(--color2);
 }
 
@@ -22,7 +22,17 @@ body {
     width: 100%;
 }
 
-.couvercle{
+.alert {
+    width: 100%;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 5px;
+    color: var(--color2);
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.couvercle {
     display: flex;
     justify-content: center;
     min-height: 100vh;
@@ -33,6 +43,11 @@ body {
     background-color: var(--color3);
     overflow: hidden;
     padding: 20px;
+}
+
+.container .alert-success{
+    background-color: 	#54ac68;
+    border: 2px solid #1e982c;
 }
 
 .container button {
@@ -63,7 +78,6 @@ body {
     flex-direction: column;
     gap: 2em;
     height: 100%;
-
 }
 
 .container form .form_head {
@@ -83,16 +97,9 @@ body {
     width: 100%;
 }
 
-.container form .form_body .alert{
-    width: 100%;
-    text-align: center;
+.container form .form_body .alert-error {
     background-color: #ff000073;
-    padding: 5px 0;
-    border-radius: 5px;
-    color: var(--color2);
     border: 2px solid red;
-    font-weight: bold;
-    font-size: 1em;
 }
 
 .container form .form_body .form_container {
@@ -102,7 +109,7 @@ body {
     height: 100%;
     width: 100%;
     gap: 2.2em;
-    transition: .3s;
+    transition: 0.3s;
 }
 
 .container form .form_container .input-box {
@@ -143,7 +150,7 @@ body {
     position: absolute;
     visibility: hidden;
     right: 5px;
-    transition: visibility .3s;
+    transition: visibility 0.3s;
     cursor: pointer;
 }
 
@@ -151,13 +158,12 @@ body {
     visibility: visible;
 }
 
-
 @media screen and (min-width: 520px) {
-    .couvercle{
+    .couvercle {
         padding: 25px 0;
         align-items: center;
     }
-    .container{
+    .container {
         width: 500px;
         min-width: 400px;
         height: 400px;

@@ -7,9 +7,6 @@ use App\Models\Demande;
 use App\Models\Societe;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,11 +21,13 @@ class StudentController extends Controller
         $user = Auth::guard('web')->user();
         $societes = Societe::all();
         $demandes = $user->demandes;
-        $users = User::all();
-        return view('student.index', compact('demandes', 'societes', 'users'));
+        $users = User::where('id', '!=', $user->id)->get();
+        $filter = false;
+        return view('student.index', compact('demandes', 'societes', 'users', 'filter'));
     }
 
-    public function back(Request $request){
+    public function back(Request $request)
+    {
         if (!auth('web')->check()) {
             return redirect('/student/login')->with('error', 'Vous devez vous connecter pour accéder à cette page.');
         }
@@ -36,38 +35,40 @@ class StudentController extends Controller
         $user = Auth::guard('web')->user();
         $societes = Societe::all();
         $demandes = $user->demandes;
-        $users = User::all();
+        $users = User::where('id', '!=', $user->id)->get();
+        $filter = false;
 
-        if($request->header('HX-Request')){
+        if ($request->header('HX-Request')) {
             return view('student.partials.main', compact('demandes', 'societes', 'users'));
-        }else{
-            return view('student.index', compact('demandes', 'societes', 'users'));
+        } else {
+            return view('student.index', compact('demandes', 'societes', 'users', 'filter'));
         }
     }
 
     public function createRequest(StudentRequest $request)
     {
+        // dd($request);
         $user = Auth::guard('web')->user();
         $latestDemande = $user->demandes()->latest()->first();
 
-        // $partner = User::find($request->validated()['partner_id']);
-        // if($partner){
-        //     if($partner->parcours_id != $user->parcours_id){
-        //         return redirect()->back()->with('error', 'Vous ne pouvez pas faire une demande avec un étudiant d\'un autre parcours.');
-        //     };
-            
-        //     if($partner->diplome_prepare_id != $user->diplome_prepare_id){
-        //         return redirect()->back()->with('error', 'Vous ne pouvez pas faire une demande avec un étudiant qui prepare un diplôme autre que le votre.');
-        //     };
+        $partner = User::find($request->validated()['partner_id']);
+        if ($partner) {
+            if ($partner->parcours_id != $user->parcours_id) {
+                return redirect()->back()->with('error', 'Vous ne pouvez pas faire une demande avec un étudiant d\'un autre parcours.');
+            };
 
-        //     if($partner->demandes()->latest()->first() && $partner->demandes()->latest()->first()->request_status == null){
-        //         return redirect()->back()->with('error', 'Votre partenaire a déjà une demande en cours de traitement.');
-        //     }
+            if ($partner->diplome_prepare_id != $user->diplome_prepare_id) {
+                return redirect()->back()->with('error', 'Vous ne pouvez pas faire une demande avec un étudiant qui prepare un diplôme autre que le votre.');
+            };
 
-        //     if($partner->demandes()->latest()->first() && $partner->demandes()->latest()->first()->request_status == 1){
-        //         return redirect()->back()->with('error', 'Votre partenaire a déjà un professeur suiveur.');
-        //     }
-        // }
+            if ($partner->demandes()->latest()->first() && $partner->demandes()->latest()->first()->request_status == null) {
+                return redirect()->back()->with('error', 'Votre partenaire a déjà une demande en cours de traitement.');
+            }
+
+            if ($partner->demandes()->latest()->first() && $partner->demandes()->latest()->first()->request_status == 1) {
+                return redirect()->back()->with('error', 'Votre partenaire a déjà un professeur suiveur.');
+            }
+        }
 
         if ($latestDemande && $latestDemande->request_status == null) {
             return redirect()->back()->with('error', 'Vous avez déjà une demande en cours de traitement(pourquoi tu veux faire une requête encore ahy man).');
@@ -77,15 +78,10 @@ class StudentController extends Controller
             return redirect()->back()->with('error', 'Vous avez déjà un professeur suiveur(pourquoi tu veux faire une requête encore ahy man).');
         }
 
-        $validated = $request->validate([
-            'company_name'=> 'required',
-            'company_contact'=> 'required|regex:/^[\d\s]+$/'
-        ]);
-
-        $societe_id = $request->input('choice') == "on" ? Societe::create([
-            'name' => $validated['company_name'],
-            'contact' => $validated['company_contact']
-        ])->id : $request->input('societe_id');
+        $societe_id = $request->input('choice') ? Societe::create([
+            'name' => $request->validated()['company_name'],
+            'contact' => $request->validated()['company_contact']
+        ])->id : $request->validated()['societe_id'];
 
         $deposit_date = Carbon::now();
         $demande = Demande::create([
@@ -99,9 +95,9 @@ class StudentController extends Controller
         ]);
 
         Auth::guard('web')->user()->demandes()->attach($demande->id);
-        // if ($partner) {
-        //     $partner->demandes()->attach($demande->id);
-        // }
+        if ($partner) {
+            $partner->demandes()->attach($demande->id);
+        }
 
 
         return redirect()->back();
@@ -114,7 +110,7 @@ class StudentController extends Controller
             return redirect('/student/login')->with('error', 'Vous devez vous connecter pour accéder à cette page.');
         }
 
-        $users = User::all();
+        $users = User::where('id', '!=', Auth::guard('web')->user()->id)->get();
         $societes = Societe::all();
 
         if ($request->header('HX-Request')) {
@@ -166,7 +162,8 @@ class StudentController extends Controller
                 'demandes' => $demandes,
                 'request_status' => $request->input('request_status'),
                 'users' => User::all(),
-                'societes' => Societe::all()
+                'societes' => Societe::all(),
+                'filter' => true,
             ]);
         }
     }

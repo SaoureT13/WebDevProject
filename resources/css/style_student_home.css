@@ -28,6 +28,77 @@ body {
     font-size: 18px;
 }
 
+.modal-deconnexion {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+}
+
+.modal-content-deconnexion {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    animation-name: slideIn;
+    animation-duration: 0.5s;
+}
+
+.modal-content-deconnexion #logout {
+    padding: 0.4em 0.8em;
+    background: var(--color2);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+
+.modal-content-deconnexion #logout:hover {
+    cursor: pointer;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translate(-50%, -40%);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 .modal.active {
     display: block;
 }
@@ -50,17 +121,18 @@ body {
     margin-bottom: 10px;
 }
 
-.modal h2, .modal h3{
-    line-height: .8;
+.modal h2,
+.modal h3 {
+    line-height: 0.8;
 }
 
-.modal h3{
+.modal h3 {
     margin-top: 10px;
     color: var(--color2);
 }
 
 .modal h2 span {
-    font-size: .4em;
+    font-size: 0.4em;
 }
 
 .modal-content {
@@ -83,7 +155,7 @@ body {
     gap: 5px;
 }
 
-.modal-content form .alert-request{
+.modal-content form .alert-request {
     display: flex;
     justify-content: center;
     color: white;
@@ -147,7 +219,7 @@ body {
     color: var(--color2);
 }
 
-.modal-content form .choice-box:hover > *{
+.modal-content form .choice-box:hover > * {
     cursor: pointer;
 }
 
@@ -163,15 +235,15 @@ body {
     flex-direction: column;
 }
 
-.modal-content form .societe-box.active{
+.modal-content form .societe-box.active {
     display: flex;
 }
 
-.modal-content form .societe-box .input-box{
+.modal-content form .societe-box .input-box {
     width: 100%;
 }
 
-.modal-content form .societe-box .input-box input{
+.modal-content form .societe-box .input-box input {
     width: 100%;
 }
 
@@ -236,6 +308,7 @@ body {
     border: none;
     border-radius: 0.5em;
     cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .layout-wrapper {
@@ -324,8 +397,22 @@ body {
     width: 100%;
 }
 
+.header .navigation .menu .user button {
+    text-align: left;
+    margin-left: 10px;
+    border: none;
+    background-color: transparent;
+    font-size: 1em;
+}
+
+.header .navigation .menu .user button:hover {
+    color: #d9534f;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 /*MAIN*/
-.container-loader{
+.container-loader {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -337,11 +424,11 @@ body {
     z-index: 1001;
 }
 
-.container-loader.htmx-request.htmx-indicator{
+.container-loader.htmx-request.htmx-indicator {
     display: flex;
 }
 
-.container-loader.htmx-request.htmx-indicator~.main{
+.container-loader.htmx-request.htmx-indicator ~ .main {
     display: none;
 }
 
@@ -355,8 +442,8 @@ body {
 .loader,
 .loader:before,
 .loader:after {
-    background: radial-gradient(closest-side at 50% 12.5%, #000 96%, #0000)
-            50% 0/20% 80% repeat-y,
+    background: radial-gradient(closest-side at 50% 12.5%, #000 96%, #0000) 50%
+            0/20% 80% repeat-y,
         radial-gradient(closest-side at 12.5% 50%, #000 96%, #0000) 0 50%/80%
             20% repeat-x;
 }
@@ -407,30 +494,29 @@ body {
     flex-wrap: wrap;
 }
 
-.main .main__head form{
+.main .main__head form {
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-.main .content{
+.main .content {
     position: relative;
 }
 
-.main .content .container-loader{
+.main .content .container-loader {
     position: absolute;
     width: 100%;
     height: 100%;
 }
 
-.main .content .container-loader.htmx-request.htmx-indicator{
+.main .content .container-loader.htmx-request.htmx-indicator {
     display: flex;
 }
 
-.content .container-loader.htmx-request.htmx-indicator~.card{
+.content .container-loader.htmx-request.htmx-indicator ~ .card {
     display: none;
 }
-
 
 .card {
     background-clip: padding-box;
@@ -491,15 +577,14 @@ tbody .badge-status {
     border-radius: 5px;
 }
 
-tbody .badge-status.pending {
+.badge-status.pending {
     background-color: #f0ad4e;
 }
 
-tbody .badge-status.validated {
+.badge-status.validated {
     background-color: #5cb85c;
 }
-
-tbody .badge-status.rejected {
+.badge-status.rejected {
     background-color: #d9534f;
 }
 
@@ -552,6 +637,18 @@ tbody .badge-status.rejected {
         align-items: center;
         justify-content: center;
         padding: 15px;
+    }
+
+    .header .navigation .menu .user button {
+        border: none;
+        background-color: transparent;
+        font-size: 1em;
+    }
+
+    .header .navigation .menu .user button:hover {
+        cursor: pointer;
+        color: #d9534f;
+        text-decoration: underline;
     }
 
     .main {

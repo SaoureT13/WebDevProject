@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulaire de connexion</title>
+    @include('favicon_import')
     @vite(['resources/css/style_register.css', 'resources/js/script_register.js'])
 </head>
 

@@ -1,3 +1,8 @@
+@if ($demandes->isEmpty())
+    <div class="no-found-data">
+        <img src="{{ asset('img/nodata-found.png') }}" alt="no-found-data" width="100%">
+    </div>
+@else
 <table class="table">
     <thead>
         <tr>
@@ -36,3 +41,5 @@
         @endforeach
     </tbody>
 </table>
+
+@endif

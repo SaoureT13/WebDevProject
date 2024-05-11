@@ -11,6 +11,9 @@ const close_modal = document.querySelector(".close");
 const choice_societe = document.querySelector("#choice");
 const societeBox = document.querySelector(".societe-box");
 const selectSociete = document.querySelector("#societe_id");
+const modalDeconnexion = document.getElementById("modal-deconnexion");
+const btn = document.getElementById("modalButton");
+const span = document.getElementsByClassName("close-button")[0];
 
 
 burgerButton.addEventListener('click', e => {
@@ -53,10 +56,28 @@ choice_societe.addEventListener("click", (e) => {
 selectSociete.addEventListener("change", (e) => {
     if(e.target.selectedIndex > 0){
         document.querySelector('.choice-box').style.display = "none";
+        societeBox.classList.remove("active");
     }else{
         document.querySelector('.choice-box').style.display = "flex";
+        if(choice_societe.checked){
+            societeBox.classList.add("active");
+        }
     }
 })
+
+btn.onclick = function() {
+    modalDeconnexion.style.display = "block";
+  }
+  
+  span.onclick = function() {
+    modalDeconnexion.style.display = "none";
+  }
+  
+  window.onclick = function(event) {
+    if (event.target == modalDeconnexion) {
+        modalDeconnexion.style.display = "none";
+    }
+  }
 
 
 

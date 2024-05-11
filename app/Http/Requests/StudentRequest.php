@@ -29,7 +29,10 @@ class StudentRequest extends FormRequest
             'global_objective'=> 'required',
             'specific_objective'=> 'required',
             'expected_result'=> 'required',
-            'societe_id' => 'exists:societes,id'
+            'choice' => 'nullable',
+            'societe_id' => $this->input('choice') ? 'nullable' : 'required|exists:societes,id',
+            'company_name' => $this->input('choice') ? 'required' : 'nullable',
+            'company_contact' => $this->input('choice') ? 'regex:/^[\d\s]+$/|max:10' : 'nullable',
         ];
     }
 }

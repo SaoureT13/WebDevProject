@@ -14,7 +14,7 @@ Route::get('/', function () {
 //        'password' => Hash::make('0000'),
 //        'phone_number' => '1234567890',
 //    ]);
-    return view('welcome');
+    return view('landing_page');
 });
 
 //Gérer l'authentification des étudiants
@@ -28,7 +28,7 @@ Route::prefix('/student')->controller(AuthStudentController::class)->group(funct
     Route::post('/login', 'doLogin');
 
     //logout
-    Route::post('/logout', 'logout')->name('logout');
+    Route::post('/logout', 'logout')->name('student.logout');
 });
 
 //Gérer la navigation apres la connexion

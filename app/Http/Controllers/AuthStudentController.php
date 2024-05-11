@@ -89,7 +89,7 @@ class AuthStudentController extends Controller
 
         if (Auth::guard('web')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended(route('home'));
+            return redirect()->intended('/student/home');
         }
 
         return back()->withErrors([
