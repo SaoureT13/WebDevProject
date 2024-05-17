@@ -70,7 +70,7 @@ class StudentController extends Controller
             }
         }
 
-        if ($latestDemande && $latestDemande->request_status == null) {
+        if ($latestDemande &&  $latestDemande->request_status === null) {
             return redirect()->back()->with('error', 'Vous avez déjà une demande en cours de traitement(pourquoi tu veux faire une requête encore ahy man).');
         }
 

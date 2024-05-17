@@ -17,7 +17,7 @@
         @foreach($teachers as $teacher)
         <tr>
             <td class="text-truncate">{{ $teacher->full_name }}</td>
-            <td class="text-truncate">{{ $teacher->course }}</td>
+            <td class="text-truncate">{{ $teacher->parcours->name }}</td>
             <td class="text-truncate">{{ $teacher->contact }}</td>
             <td class="text-truncate">@if($teacher->users->count() == 0) Aucun @else {{ $teacher->users()->count() }} @endif</td>
         </tr>

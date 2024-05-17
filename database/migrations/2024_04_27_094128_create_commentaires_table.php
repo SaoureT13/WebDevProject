@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('comment_global_obj');
             $table->string('comment_specific_obj');
             $table->string('comment_result_expected');
+            $table->string('other_comments')->nullable();
             $table->timestamps();
         });
 

@@ -25,6 +25,10 @@
                     <div class="alert alert-success">{{ session('success') }}</div>
                     @endif
 
+                    @if (Session::has('status'))
+                        <div class="alert alert-success">{{ Session::get('status') }}</div>
+                    @endif
+
                     <div class="form_body">
                         @if(session('error'))
                         <div class="alert alert-error"> {{ session('error') }}</div>
@@ -42,9 +46,13 @@
                                 <label for="password" class="@if ($errors->has('password')) error @endif">Mot de
                                     passe</label>
                                 <img src="{{ asset('img/eye-off.svg') }}" width="26" class="show_password">
+                                <div class="forgot-password-info">
+                                    <p>J'ai oublié <a href="{{ route('student.forgotPassword') }}" class="underline">mon mot de passe</a> ?</p>
+                                </div>
                             </div>
 
-                            <button class="next" type="submit">Connexion<ion-icon name="arrow-forward-outline"></ion-icon></button>
+
+                            <button class="next" type="submit">Connexion</button>
                         </div>
                     </div>
                 </form>

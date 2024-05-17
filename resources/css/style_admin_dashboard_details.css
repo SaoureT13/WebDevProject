@@ -27,7 +27,7 @@
     /*max-width: 1080px;*/
     max-width: 100%;
     /*margin: 0 auto;*/
-    margin: 0 20px;
+    /* margin: 0 20px; */
     padding: 20px;
     border-radius: 10px;
     background-color: var(--color3);
@@ -169,13 +169,13 @@ h1 {
     gap: 5px;
 }
 
-.comment-section form .input-group.error input,
+.comment-section form .input-group.error textarea,
 .comment-section form .input-group.error select,
 .comment-section form .input-group.error:hover select,
 .comment-section form .input-group.error select:focus,
-.comment-section form .input-group.error input,
-.comment-section form .input-group.error:hover input,
-.comment-section form .input-group.error input:focus {
+.comment-section form .input-group.error textarea,
+.comment-section form .input-group.error:hover textarea,
+.comment-section form .input-group.error textarea:focus {
     border-color: red;
 }
 
@@ -191,7 +191,7 @@ h1 {
     color: var(--color2);
 }
 
-.comment-section form .input-group input,
+.comment-section form .input-group textarea,
 .comment-section form .input-group select {
     padding: 10px;
     border-radius: 5px;
@@ -200,6 +200,12 @@ h1 {
     transition: all 0.3s;
     font-size: 0.8em;
     color: var(--color2);
+}
+
+.comment-section form .input-group textarea{
+    width: 100%;
+    min-height: 64px;
+    resize: vertical;
 }
 
 .comment-section form .input-group select:hover {

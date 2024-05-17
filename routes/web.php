@@ -5,7 +5,23 @@ use App\Http\Controllers\AuthAdminController;
 use App\Http\Controllers\AuthStudentController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+
+/*Envoyer un email
+Route::get('/test-email', function () {
+    $details = [
+        'title' => 'Test Email',
+        'body' => 'This is a test email.'
+    ];
+
+    Mail::raw('This is a test email body.', function ($message) {
+        $message->to('saoured11@gmail.com')
+                ->subject('Test Email Subject');
+    });
+
+    dd('Email sent!');
+});*/
 
 Route::get('/', function () {
 //    \App\Models\Admin::create([
@@ -29,6 +45,12 @@ Route::prefix('/student')->controller(AuthStudentController::class)->group(funct
 
     //logout
     Route::post('/logout', 'logout')->name('student.logout');
+
+    //reset password
+    Route::get('/forgot-password', 'forgotPassword')->name('student.forgotPassword');
+    Route::post('/forgot-password', 'doForgotPassword');
+    Route::get('/reset-password/{token}', 'resetPasswordForm')->name('password.reset');
+    Route::post('/reset-password', 'doResetPassword')->name('password.update');
 });
 
 //Gérer la navigation apres la connexion

@@ -23,9 +23,9 @@ class AuthStudentSignUpRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name' => 'required',
-            'serial_number' => 'required',
-            'phone_number' => 'required',
+            'full_name' => ['required', 'regex:/^[A-Za-z]+[A-Za-z ]*$/'],
+            'serial_number' => ['required', 'regex:/^[0-9]+$/', 'min:7'],
+            'phone_number' => ['required', 'regex:/^[0-9]+$/', 'min:8', 'max:10'],
             'email' => 'required|email',
             'password' => 'required|min:4',
             'parcours_id' => 'required|exists:parcours,id',

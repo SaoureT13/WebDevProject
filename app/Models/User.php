@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Auth\Passwords\CanResetPassword;
 
-class User extends Authenticatable
+class User extends Authenticatable implements CanResetPasswordContract
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, CanResetPassword;
 
     /**
      * The attributes that are mass assignable.
@@ -65,5 +67,10 @@ class User extends Authenticatable
     public function demandes(): BelongsToMany
     {
         return $this->belongsToMany(Demande::class);
+    }
+
+    public function professeur(): BelongsTo
+    {
+        return $this->belongsTo(Professeur::class);
     }
 }

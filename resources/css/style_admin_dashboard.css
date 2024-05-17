@@ -261,23 +261,6 @@ body {
     border-radius: 0 50rem 50rem 0;
 }
 
-.layout-container .vertical-menu .menu li .menu-link::after {
-    position: absolute;
-    content: "";
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    background: url("../img/chevron-forward-outline.svg");
-    right: 15px;
-    vertical-align: middle;
-    transition: all 0.3s;
-}
-
-.layout-container .vertical-menu .menu .menu-item:hover .menu-link::after,
-.layout-container .vertical-menu .menu .menu-item.active .menu-link::after {
-    transform: rotate(90deg);
-}
-
 .content-wrapper {
     flex-basis: 100%;
     flex-direction: column;

@@ -1,8 +1,6 @@
 let cards = document.querySelectorAll(".form_container");
 let circles = document.querySelectorAll(".circle");
 let checkboxes = document.querySelectorAll('input[type="checkbox"]');
-let showPassword = document.querySelector(".show_password");
-let inputPassword = document.querySelector(".input_field");
 
 let formContainer_1 = document.querySelector(".step_1");
 
@@ -70,22 +68,6 @@ checkboxes.forEach((checkbox) => {
             lastParent.querySelector('input[type="text"]').style.display = "none";
         }
     });
-});
-
-showPassword.addEventListener("click", (e) => {
-    e.preventDefault();
-
-    showPassword.setAttribute(
-        "src",
-        inputPassword.getAttribute("type") === "password"
-            ? "./eye-off-outline.svg"
-            : "./eye-outline.svg"
-    );
-
-    inputPassword.setAttribute(
-        "type",
-        inputPassword.getAttribute("type") === "password" ? "text" : "password"
-    );
 });
 
 function disabledBtnContinue() {

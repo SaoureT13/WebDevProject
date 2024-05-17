@@ -33,6 +33,17 @@ class AdminController extends Controller
         ]);
     }
 
+    // public function realoadData(){
+    //     $demandes = Demande::all();
+    //     $societes = Societe::all();
+    //     $diplomes = DiplomePrepare::all();
+    //     return view('admin.partials.main_demande', [
+    //         'demandes' => $demandes,
+    //         'societes' => $societes,
+    //         'diplomes' => $diplomes
+    //     ]);
+    // }
+
     public function viewRequests(Request $request)
     {
         if (!auth('admin')->check()) {
@@ -112,12 +123,14 @@ class AdminController extends Controller
         if ($request->header('HX-Request')) {
             return view('admin.partials.show', [
                 'demande' => $demande,
-                'teachers' => $teachers
+                'teachers' => $teachers,
+                'show_select_student' => $demande->request_status == true
             ]);
         } else {
             return view('admin.show', [
                 'demande' => $demande,
-                'teachers' => $teachers
+                'teachers' => $teachers,
+                'show_select_student' => $demande->request_status == true
             ]);
         }
     }
@@ -142,7 +155,8 @@ class AdminController extends Controller
 
         return view('admin.partials.show', [
             'demande' => $demande,
-            'teachers' => Professeur::all()
+            'teachers' => Professeur::all(),
+            'show_select_student' => $request->input('status') == 'validated'
         ]);
     }
 
@@ -160,46 +174,21 @@ class AdminController extends Controller
         $demande->save();
 
         //        $user->professeur_id = $request->validated()['professeur_id'];
-        //        $user->save();
+        //        $user->save();<null>
 
         $user = $demande->users->first();
         if ($user) {
-            $user->professeur_id = $request->validated()['professeur_id'];
+//            dd($request);
+            $user->professeur_id = $request->input('professeur_id') ? $request->input('professeur_id') : null;
             $user->save();
-
-            //Envoyé un message à l'utilisateur
-            $sid    = env('TWILIO_SID');
-            $token  = env('TWILIO_TOKEN');
-            $twilio = app(TwilioClient::class, [$sid, $token]);
-
-            $message = $twilio->messages
-                ->create(
-                    '+225' . $user->phone_number,
-                    [
-                        "from" => env('TWILIO_PHONE_NUMBER'),
-                        "body" => "Administration Pigier. Bonjour {$user->full_name}, votre demande a été traitée. Vous pouvez vous rendre sur le site et consulter votre réponse. Merci de votre confiance.",
-                    ]
-                );
+//            list($sid, $token, $twilio) = $this->extracted($user);
         };
 
         if ($demande->users->count() >= 2) {
             $partner = $demande->users[1];
-            $partner->professeur_id = $request->validated()['professeur_id'];
+            $partner->professeur_id = $request->input('professeur_id') ? $request->input('professeur_id') : null;
             $partner->save();
-
-            //Envoyé un message au partenaire
-            $sid    = env('TWILIO_SID');
-            $token  = env('TWILIO_TOKEN');
-            $twilio = app(TwilioClient::class, [$sid, $token]);
-
-            $message = $twilio->messages
-                ->create(
-                    '+225' . $partner->phone_number,
-                    [
-                        "from" => env('TWILIO_PHONE_NUMBER'),
-                        "body" => "Administration Pigier. Bonjour {$partner->full_name}, votre demande a été traitée. Vous pouvez vous rendre sur le site et consulter votre réponse. Merci de votre confiance.",
-                    ]
-                );
+//            list($sid, $token, $twilio) = $this->extracted($partner);
         }
 
         Session::flash('success', 'Commentaire ajouté avec succès');
@@ -324,5 +313,27 @@ class AdminController extends Controller
                 'filter_teachers' => $request->input('filter_teachers')
             ]);
         }
+    }
+
+    /**
+     * @param $user
+     * @return array
+     */
+    public function extracted($user): array
+    {
+        //Envoyé un message à l'utilisateur
+        $sid = env('TWILIO_SID');
+        $token = env('TWILIO_TOKEN');
+        $twilio = app(TwilioClient::class, [$sid, $token]);
+
+        $message = $twilio->messages
+            ->create(
+                '+225' . $user->phone_number,
+                [
+                    "from" => env('TWILIO_PHONE_NUMBER'),
+                    "body" => "Administration Pigier. Bonjour {$user->full_name}, votre demande a été traitée. Vous pouvez vous rendre sur le site et consulter votre réponse. Merci de votre confiance.",
+                ]
+            );
+        return array($sid, $token, $twilio);
     }
 }

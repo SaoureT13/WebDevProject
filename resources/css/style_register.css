@@ -146,6 +146,7 @@ body {
 
 .container form .form_container .input-box.error{
     border-bottom: 2px solid red;
+    margin-bottom: .5em;
 }
 
 .container form .form_container .input-box input {
@@ -159,15 +160,13 @@ body {
     color: var(--color2);
 }
 
-.container form .form_container .input-box .alert{
-    position: absolute;
-    left: 5px;
-    bottom: -70%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.container form .form_container .input-box.error input{
     color: red;
-    gap: 5px;
+    transition: all .3s;
+}
+
+.container form .form_container .input-box.error input:focus{
+    color: var(--color2);
 }
 
 .container form .form_container .input-box label {
@@ -182,7 +181,7 @@ body {
     font-weight: bold;
 }
 
-.container form .form_container .input-box label.error{
+.container form .form_container .input-box.error label{
     color: red;
 }
 
@@ -191,6 +190,7 @@ body {
     top: -5px;
     font-size: 0.8em;
 }
+
 
 .container form .form_container .input-box img {
     position: absolute;
@@ -201,7 +201,21 @@ body {
 }
 
 .container form .form_container .input-box input:valid ~ img {
+    position: absolute;
     visibility: visible;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.container form .form_container .input-box .error{
+    position: absolute;
+    bottom: -20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: red;
+    font-size: .8em;   
 }
 
 /*Seconde etapes*/
@@ -223,14 +237,29 @@ body {
     border-radius: 5px;
     padding: 5px;
     color: var(--color2);
-    border-color: var(--color2);
-    border-width: 2px;
+    border: 2px solid var(--color2);
     cursor: pointer;
     font-size: 1em;
 }
 
+.container form .form_container .select-group.error select{
+    border-color: red;
+}
+
+.container form .form_container .select-group.error label{
+    color: red;
+} 
+
 .container form .form_container .select-group select option {
     font-size: 1em;
+}
+
+.container form .form_container .select-group .error {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: red;
+    font-size: .8em;   
 }
 
 .container form .form_container .diplome_obtenu {

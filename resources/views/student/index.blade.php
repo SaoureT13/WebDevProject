@@ -45,7 +45,7 @@
 
                 <div class="input-box @error('theme') error @enderror">
                     <label for="theme">Theme:</label><br>
-                    <input type="text" id="theme" name="theme" value="{{ old('theme') }}"><br>
+                    <textarea id="theme" name="theme">{{ old('theme') }}</textarea><br>
                     @error('theme')
                     <span class="alert"><ion-icon name="alert-circle-outline"></ion-icon>Ce champs est
                         obligatoire</span>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="input-box @error('memory_problems') error @enderror">
                     <label for="memory_problems">Problématique:</label><br>
-                    <input type="text" id="memory_problems" name="memory_problems" value="{{ old('memory_problems') }}"><br>
+                    <textarea id="memory_problems" name="memory_problems">{{ old('memory_problems') }}</textarea><br>
                     @error('memory_problems')
                     <span class="alert"><ion-icon name="alert-circle-outline"></ion-icon>Ce champs est
                         obligatoire</span>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="input-box @error('global_objective') error @enderror">
                     <label for="global_objective">Objectif global:</label><br>
-                    <input type="text" id="global_objective" name="global_objective" value="{{ old('global_objective') }}"><br>
+                    <textarea id="global_objective" name="global_objective">{{ old('global_objective') }}</textarea><br>
                     @error('global_objective')
                     <span class="alert"><ion-icon name="alert-circle-outline"></ion-icon>Ce champs est
                         obligatoire</span>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="input-box @error('specific_objective') error @enderror">
                     <label for="specific_objective">Objectif spécifique:</label><br>
-                    <input type="text" id="specific_objective" name="specific_objective" value="{{ old('specific_objective') }}"><br>
+                    <textarea id="specific_objective" name="specific_objective">{{ old('specific_objective') }}</textarea><br>
                     @error('specific_objective')
                     <span class="alert"><ion-icon name="alert-circle-outline"></ion-icon>Ce champs est
                         obligatoire</span>
@@ -78,7 +78,7 @@
 
                 <div class="input-box @error('expected_result') error @enderror">
                     <label for="expected_result">Résultat attendu:</label><br>
-                    <input type="text" id="expected_result" name="expected_result" value="{{ old('expected_result') }}"><br>
+                    <textarea id="expected_result" name="expected_result">{{ old('expected_result') }}</textarea><br>
                     @error('expected_result')
                     <span class="alert"><ion-icon name="alert-circle-outline"></ion-icon>Ce champs obligatoire</span>
                     @enderror
@@ -114,7 +114,7 @@
                     </div>
                     <div class="input-box @error('company_contact') error @enderror"">
                         <label for=" company_contact">Contact société:</label><br>
-                        <input type="text" id="company_contact" name="company_contact" value="{{ old('company_contact') }}" placeholder="Contact de la société"><br>
+                        <input type="text" maxlength="10" id="company_contact" name="company_contact" value="{{ old('company_contact') }}" placeholder="Contact de la société"><br>
                         @error('company_contact')
                         <span class="alert"><ion-icon name="alert-circle-outline"></ion-icon>Ce champs obligatoire et doit être un numéro valide</span>
                         @enderror

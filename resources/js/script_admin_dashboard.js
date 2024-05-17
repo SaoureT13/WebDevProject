@@ -54,14 +54,14 @@ window.onclick = function (event) {
     }
 };
 
-reloadBtn.addEventListener("click", (e) => {
-    e.preventDefault();
+// reloadBtn.addEventListener("click", (e) => {
+//     e.preventDefault();
 
-    selects.forEach((select) => {
-        select.querySelectorAll("option").forEach((option, i) => {
-            if (i === 0) {
-                option.selected = true;
-            }
-        });
-    });
-});
+//     selects.forEach((select) => {
+//         select.querySelectorAll("option").forEach((option, i) => {
+//             if (i === 0) {
+//                 option.selected = true;
+//             }
+//         });
+//     });
+// });

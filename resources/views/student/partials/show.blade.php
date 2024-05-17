@@ -24,7 +24,7 @@
         <div class="detail-item">
             <label><strong>Résultat attendu :</strong> <span id="response">{{ $demande->expected_result }}</span></label>
         </div>
-        <div class="detail-item">
+        <div class="detail-item two">
             <div class="detail-item">
                 <label><strong>Date de dépôt :</strong> <span id="response">{{ $demande->deposit_date }}</span></label>
             </div>
@@ -47,6 +47,7 @@
         </div>
     </div>
 
+    @if ($demande->commentaire)
     <div class="details comments">
         <h2>Commentaire sur ma demande</h2>
         <div class="detail-item">
@@ -65,6 +66,13 @@
         <div class="detail-item">
             <label><strong>Résultat attendu :</strong> <span id="response">{{ $demande->commentaire->comment_result_expected }}</span></label>
         </div>
+
+        @if($demande->request_status == 1)
+            <div class="detail-item">
+                <label><strong>Professeur suiveur accordé :</strong> <span id="response">{{ $demande->users->first()->professeur->full_name }}</span></label>
+            </div>
+        @endif
     </div>
+    @endif
     <a hx-get="{{ route('backHome') }}" hx-swap="innerHTML" hx-target="#main" hx-trigger="click" hx-push-url="true" hx-indicator="#container-loader" class="back">Retour</a>
 </div>

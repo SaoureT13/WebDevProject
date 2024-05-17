@@ -1,6 +1,6 @@
 <div class="filter-bar">
     <div class="filter">
-        <form hx-get="{{ route('admin.filterRequests') }}" hx-swap="innerHTML" hx-target=".table-responsive" hx-push-url="true" hx-indicator="#loader-two" {{--                                  hx-history="false" --}}>
+        <form hx-get="{{ route('admin.filterRequests') }}" hx-swap="innerHTML" hx-target=".table-responsive" hx-push-url="true" hx-indicator="#loader-two">
             <div class="filter-item-society">
                 <label for="filter_societe">Filtrer par société:</label>
                 <select name="societe_id" id="filter_societe" class="">
@@ -49,10 +49,10 @@
 
 <div class="reload-data">
     <div>
-       <button type="button" class="reload-btn">
-         <ion-icon name="reload-circle-outline"></ion-icon>
-         Actualiser les données
-       </button>
+        <button type="button" class="reload-btn" hx-get="{{ route('admin.viewRequestsAll') }}" hx-swap="innerHTML" hx-target="#main" hx-push-url="true" hx-indicator="#container-loader">
+            <ion-icon name="reload-circle-outline"></ion-icon>
+            Actualiser les données
+        </button>
     </div>
 </div>
 <div class="content">

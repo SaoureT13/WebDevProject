@@ -12,6 +12,7 @@ use App\Models\Parcours;
 use App\Models\Societe;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -19,6 +20,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 
 class AuthStudentController extends Controller
 {
@@ -101,5 +105,57 @@ class AuthStudentController extends Controller
     {
         Auth::guard('web')->logout();
         return to_route('student.login')->with('error', 'Vous devez vous connecter pour accéder à cette page.');
+    }
+
+    public function forgotPassword(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
+    {
+        return view('student.auth.forgot_password');
+    }
+
+    public function doForgotPassword(Request $request){
+        $request->validate([
+            'email' => 'required|email|exists:users,email'
+        ]);
+
+        $status = Password::broker('users')->sendResetLink(
+            $request->only('email')
+        );
+
+        return $status === Password::RESET_LINK_SENT
+            ? back()->with('status', __($status))
+            : back()->withErrors(['email' => __($status)]);
+    }
+
+    public function resetPasswordForm($token){
+        return view('student.auth.reset_password_form', ['token' => $token]);
+    }
+
+    public function doResetPassword(Request $request){
+//        dd($request);
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|confirmed'
+        ]);
+
+
+        $status = Password::broker('users')->reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function (User $user, string $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
+
+                $user->save();
+
+                event(new PasswordReset($user));
+            }
+        );
+
+
+        return $status === Password::PASSWORD_RESET
+            ? redirect()->route('student.login')->with('status', __($status))
+            : back()->withErrors(['email' => [__($status)]]);
+
     }
 }

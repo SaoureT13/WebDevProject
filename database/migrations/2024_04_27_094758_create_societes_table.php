@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('societes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('contact');
+            $table->string('contact', 10);
             $table->timestamps();
         });
 

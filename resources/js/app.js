@@ -44,7 +44,7 @@ modal.addEventListener("click", (e) => {
     }
 })
 
-choice_societe.addEventListener("click", (e) => {
+choice_societe.addEventListener("change", (e) => {
     if(e.target.checked){
         societeBox.classList.add("active");
     }else{
@@ -68,13 +68,13 @@ selectSociete.addEventListener("change", (e) => {
 btn.onclick = function() {
     modalDeconnexion.style.display = "block";
   }
-  
+
   span.onclick = function() {
     modalDeconnexion.style.display = "none";
   }
-  
+
   window.onclick = function(event) {
-    if (event.target == modalDeconnexion) {
+    if (event.target === modalDeconnexion) {
         modalDeconnexion.style.display = "none";
     }
   }

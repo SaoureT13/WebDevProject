@@ -29,7 +29,8 @@ class AdminCommentRequest extends FormRequest
             'comment_global_obj' => 'required|string',
             'comment_specific_obj' => 'required|string',
             'comment_result_expected' => 'required|string',
-            'professeur_id' => 'required|exists:professeurs,id',
+//            Big error at this line
+//            'professeur_id' => $this->input('professeur_id') ? 'required|exists:professeurs,id' : 'nullable',
         ];
     }
 }

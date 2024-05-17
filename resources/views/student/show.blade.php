@@ -105,16 +105,16 @@
 
 
                 <div class="societe-box @if (old('choice') == 'on') active @endif">
-                    <div class="input-box @error('company_name') error @enderror"">
+                    <div class="input-box @error('company_name') error @enderror">
                         <label for=" company_name">Nom société:</label><br>
                         <input type="text" id="company_name" name="company_name" value="{{ old('company_name') }}" placeholder="Nom de la société"><br>
                         @error('company_name')
                         <span class="alert"><ion-icon name="alert-circle-outline"></ion-icon>Ce champs obligatoire</span>
                         @enderror
                     </div>
-                    <div class="input-box @error('company_contact') error @enderror"">
+                    <div class="input-box @error('company_contact') error @enderror">
                         <label for=" company_contact">Contact société:</label><br>
-                        <input type="text" id="company_contact" name="company_contact" value="{{ old('company_contact') }}" placeholder="Contact de la société"><br>
+                        <input type="text" maxlength="10" id="company_contact" name="company_contact" value="{{ old('company_contact') }}" placeholder="Contact de la société"><br>
                         @error('company_contact')
                         <span class="alert"><ion-icon name="alert-circle-outline"></ion-icon>Ce champs obligatoire et doit être un numéro valide</span>
                         @enderror
@@ -166,7 +166,7 @@
                             @endauth
 
                             <button type="button" id="modalButton">Déconnexion</button>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -202,7 +202,7 @@
                         <div class="detail-item">
                             <label><strong>Résultat attendu :</strong> <span id="response">{{ $demande->expected_result }}</span></label>
                         </div>
-                        <div class="detail-item">
+                        <div class="detail-item two">
                             <div class="detail-item">
                                 <label><strong>Date de dépôt :</strong> <span id="response">{{ $demande->deposit_date }}</span></label>
                             </div>
@@ -225,6 +225,7 @@
                         </div>
                     </div>
 
+                    @if ($demande->commentaire)
                     <div class="details comments">
                         <h2>Commentaire sur ma demande</h2>
                         <div class="detail-item">
@@ -242,10 +243,17 @@
                         </div>
                         <div class="detail-item">
                             <label><strong>Résultat attendu :</strong> <span id="response">{{ $demande->commentaire->comment_result_expected }}</span></label>
-                        </div>                   
+                        </div>
+
+                        @if($demande->request_status == 1)
+                            <div class="detail-item">
+                                <label><strong>Professeur suiveur accordé :</strong> <span id="response">{{ $demande->users->first()->professeur->full_name }}</span></label>
+                            </div>
+                        @endif
                     </div>
+                    @endif
                     <a hx-get="{{ route('backHome') }}" hx-swap="innerHTML" hx-target="#main" hx-trigger="click" hx-push-url="true" hx-indicator="#container-loader" class="back">Retour</a>
-                </div>  
+                </div>
             </main>
 
             <footer class="footer"></footer>

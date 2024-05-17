@@ -137,10 +137,11 @@
                                 <button 
                                     type="button" 
                                     class="reload-btn" 
-                                    hx-get="{{ route('admin.filterRequests') }}" 
+                                    hx-get="{{ route('admin.viewRequestsAll') }}" 
                                     hx-swap="innerHTML" 
-                                    hx-target=".table-responsive" 
-                                    hx-indicator="#loader-two">
+                                    hx-target="#main" 
+                                    hx-push-url="true"
+                                    hx-indicator="#container-loader">
                                     <ion-icon name="reload-circle-outline"></ion-icon>
                                     Actualiser les données
                                 </button>
